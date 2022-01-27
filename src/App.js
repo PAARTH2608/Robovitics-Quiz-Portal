@@ -4,11 +4,11 @@ function App() {
   return (
     <>
     <Routes>
-        <Route exact path="/" element={<Start/>} />
+        {/* <Route exact path="/" element={<Start/>} />
         <Route path="/rules" element={<Authentication/>} />
         <Route path="/domains" element={<RegisterOne/>} />
         <Route path="/submit" element={<RegisterTwo/>} />
-        <Route path="/finish" element={<FAQ/>} />
+        <Route path="/finish" element={<FAQ/>} /> */}
       </Routes>
     </>
   );
