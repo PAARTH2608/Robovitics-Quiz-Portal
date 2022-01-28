@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Socials from "../utils/Socials";
 import Robo from "../../assets/robo.svg";
@@ -13,22 +14,22 @@ export const MainDiv = styled.div`
   align-items: center;
   justify-content: space-around;
   background: rgb(17,15,46);
-  background: linear-gradient(180deg, rgba(17,15,46,1) 36%, rgba(34,75,162,1) 100%);
+  background: linear-gradient(180deg, rgba(17,15,46,0.9923319669664741) 45%, rgba(34,75,162,1) 100%);
   margin:auto;
   position:relative;
 `;
-const ImgDiv = styled.div`
+export const ImgDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 50%;
   height: 90%;
 `;
-const Img = styled.img`
+export const Img = styled.img`
   height: 100%;
   width: 90%;
 `;
-const TextDiv = styled.div`
+export const TextDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,7 +41,7 @@ const Tx1 = styled.img`
   width: 90%;
   height: 100%;
 `;
-const Tx2 = styled.h2`
+export const Tx2 = styled.h2`
   color: white;
   font-family: montserrat;
   font-size:1.5rem;
@@ -49,7 +50,7 @@ const Tx3 = styled.h2`
   color: #5be4ff;
   font-size: 2rem;
 `;
-const Tx4 = styled.h1`
+export const Tx4 = styled.h1`
   color: #5be4ff;
   font-size: 4rem;
 `;
@@ -69,7 +70,7 @@ export const Tx5 = styled.button`
   &:hover {
   }
 `;
-const ColDiv = styled.div`
+export const ColDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -106,7 +107,7 @@ const Start = () => {
         </ColDiv>
         <Tx3>CORE COMMITTEE SELECTIONS 2022</Tx3>
         <Tx4>ROUND 1</Tx4>
-        <Tx5 pad1={"2%"} pad2={"4%"}>START QUIZ</Tx5>
+        <Tx5 pad1={"2%"} pad2={"4%"}><Link to={'/rules'} style={{ textDecoration: 'none', color: 'black' }}>START QUIZ</Link></Tx5>
       </TextDiv>
       <SocialDiv>
         <Socials />

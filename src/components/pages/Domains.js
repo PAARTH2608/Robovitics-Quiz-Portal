@@ -121,7 +121,7 @@ const Domains = () => {
         </Para> */}
       </RulesDiv>
       <Tx5 pad1={"1%"} pad2={"2%"}>
-        SUBMIT QUIZ
+        <Link to={'/submit'} style={{ textDecoration: 'none', color: 'black' }}>UPLOAD QUIZ</Link>
       </Tx5>
       <LogoDiv src={Logo} alt="logo">
         <Img src={Logo} alt="logo" />

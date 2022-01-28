@@ -5,6 +5,7 @@ import Counter from "../utils/Counter";
 import Logo from "../../assets/RoboVITics-Logo.svg";
 import Line from "../../assets/line.svg";
 import Dot from "../../assets/dot.svg";
+import { Link } from "react-router-dom";
 
 const TextDiv = styled.h1`
   color: #5be4ff;
@@ -116,7 +117,7 @@ const Rules = () => {
         </Para>
       </RulesDiv>
       <Tx5 pad1={"2%"} pad2={"4%"}>
-        START
+        <Link to={'/domains'} style={{ textDecoration: 'none', color: 'black' }}>START</Link>
       </Tx5>
       <LogoDiv src={Logo} alt="logo">
         <Img src={Logo} alt="logo" />

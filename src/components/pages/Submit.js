@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { MainDiv, Tx5 } from "./Start";
 import { Img, LogoDiv } from "./Rules";
 import Logo from "../../assets/RoboVITics-Logo.svg";
-import ImgLogo from '../../assets/Group.svg'
+import ImgLogo from "../../assets/Group.svg";
+import { Link } from "react-router-dom";
 
 const Tx1 = styled.h1`
   color: white;
@@ -28,12 +29,17 @@ const Help = styled.div`
   text-align: center;
 `;
 const ImgDiv = styled.img`
-cursor:pointer;
+  cursor: pointer;
 `;
-const Help1 = styled.div``;
+const Help1 = styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+`;
 const Tx6 = styled.h2`
-color: #5be4ff;
-padding-top:4vh;
+  color: #5be4ff;
+  padding-top: 4vh;
 `;
 const Submit = () => {
   const fileInputRef = useRef();
@@ -56,16 +62,16 @@ const Submit = () => {
         hidden
       />
       <Help1>
-      <ImgDiv src={ImgLogo} onClick={() => fileInputRef.current.click()}/>
-      <Tx6>FILE UPLOAD</Tx6>
+        <ImgDiv src={ImgLogo} onClick={() => fileInputRef.current.click()} />
+        <Tx6>FILE UPLOAD</Tx6>
       </Help1>
       <Tx4>ARE YOU SURE YOU WANT TO SUBMIT QUIZ ?</Tx4>
       <HelperDiv>
         <Tx5 pad1={"1%"} pad2={"3%"}>
-          GO BACK
+          <Link to={'/domain'} style={{ textDecoration: 'none', color: 'black' }}>GO BACK</Link>
         </Tx5>
         <Tx5 pad1={"1%"} pad2={"3%"}>
-          SUBMIT QUIZ
+          <Link to={'/finish'} style={{ textDecoration: 'none', color: 'black' }}>SUBMIT QUIZ</Link>
         </Tx5>
       </HelperDiv>
       <LogoDiv src={Logo} alt="logo">
