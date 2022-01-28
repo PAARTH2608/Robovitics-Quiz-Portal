@@ -5,16 +5,17 @@ import Logo from "../../assets/RoboVITics-Logo.svg";
 import Line from "../../assets/line.svg";
 import Dot from "../../assets/dot.svg";
 
-const MainDiv = styled.div`
+export const MainDiv = styled.div`
   height: 100vh;
   width: 100%;
   display: flex;
+  flex-direction: ${props => props.col};
   align-items: center;
   justify-content: space-around;
-  background-color: grey;
   background: rgb(17,15,46);
   background: linear-gradient(180deg, rgba(17,15,46,1) 36%, rgba(34,75,162,1) 100%);
   margin:auto;
+  position:relative;
 `;
 const ImgDiv = styled.div`
   display: flex;
@@ -52,7 +53,7 @@ const Tx4 = styled.h1`
   color: #5be4ff;
   font-size: 4rem;
 `;
-const Tx5 = styled.button`
+export const Tx5 = styled.button`
   padding: 2% 4%;
   font-size: 1.3rem;
   border-radius: 5px;
@@ -76,17 +77,17 @@ const ColDiv = styled.div`
   height: 22vh;
   width: 100%;
 `;
-const SocialDiv = styled.div`
+export const SocialDiv = styled.div`
   position: absolute;
   left: 20px;
   bottom: 25%;
 `;
-const LineDiv = styled.img`
+export const LineDiv = styled.img`
   position: absolute;
   bottom:7%;
   left:30px;
 `;
-const DotDiv = styled.img`
+export const DotDiv = styled.img`
 position: absolute;
 bottom:3%;
 left:28px;
