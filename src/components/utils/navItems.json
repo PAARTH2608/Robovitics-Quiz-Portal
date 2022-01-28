@@ -1,0 +1,23 @@
+[
+    {
+        "display_name": "Management",
+        "route": "/domain/management"
+    },
+    {
+        "display_name": "Logical",
+        "route": "/domain/logical"
+    },
+    {
+        "display_name": "Mechanical",
+        "route": "/domain/mechanical"
+    },
+    {
+        "display_name": "CSE",
+        "route": "/domain/cse"
+    },
+    {
+        "display_name": "Electrical",
+        "route": "/domain/electrical"
+        
+    }
+]

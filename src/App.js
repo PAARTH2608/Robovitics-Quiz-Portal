@@ -18,11 +18,11 @@ function App() {
         <Route path="/rules" element={<Rules/>} />
 
         <Route path="/domain" element={<Domains/>} />
-        <Route path="/domain/management" element={<Management/>} />
+        {/* <Route path="/domain" element={<Management/>} />
         <Route path="/domain/logical" element={<Logical/>} />
         <Route path="/domain/mechanical" element={<Mech/>} />
         <Route path="/domain/cse" element={<CSE/>} />
-        <Route path="/domain/electrical" element={<Electrical/>} />
+        <Route path="/domain/electrical" element={<Electrical/>} /> */}
 
         <Route path="/submit" element={<Submit/>} />
         <Route path="/finish" element={<Finish/>} />

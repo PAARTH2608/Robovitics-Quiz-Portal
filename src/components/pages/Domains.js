@@ -5,16 +5,23 @@ import { RulesDiv, Img, LogoDiv, Para } from "./Rules";
 import Logo from "../../assets/RoboVITics-Logo.svg";
 import Management from "../subdomains/Management";
 import { Link } from "react-router-dom";
+import navList from "../utils/navItems.json";
+import { useState } from "react";
 
 const P = styled.p`
   color: grey;
   font-size: 1.5rem;
   height: 100%;
-  cursor:pointer;
+  cursor: pointer;
 
   &:hover {
     color: white;
     border-bottom: 3px solid #5be4ff;
+  }
+  &:active{
+    color: white;
+    border-bottom: 3px solid #5be4ff;
+    
   }
 `;
 const DomainNames = styled.div`
@@ -28,21 +35,22 @@ const QuestionDiv = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const InputDiv = styled.input`
-  padding: 2%;
-`;
+
 const Domains = () => {
+    const [click, setClick] = useState(false);
+    // const handleClick = () => setClick(!click);
+    const handler = () => {
+        setClick(!click)
+    };
   return (
     <MainDiv col={"column"}>
       <DomainNames>
-        <Link to={"/domain/management"} style={{ textDecoration: 'none' }}><P>Management</P></Link>
-        <Link to={"/domain/logical"} style={{ textDecoration: 'none' }}><P>Logical</P></Link>
-        <Link to={"/domain/mechanical"} style={{ textDecoration: 'none' }}><P>Mechanical</P></Link>
-        <Link to={"/domain/cse"} style={{ textDecoration: 'none' }}><P>CSE</P></Link>
-        <Link to={"/domain/electrical"} style={{ textDecoration: 'none' }}><P>Electrical</P></Link>
+        {navList.map((item, i) => (
+          <P key={i} onClick={handler} cl={click}>{item.display_name}</P>
+        ))}
       </DomainNames>
       <RulesDiv>
-          
+
         {/* <QuestionDiv>
           <Para>
             1. Lorem Ipsum is simply dummy text of the printing and typesetting
