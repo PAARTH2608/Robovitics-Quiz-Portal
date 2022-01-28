@@ -54,7 +54,7 @@ const Tx4 = styled.h1`
   font-size: 4rem;
 `;
 export const Tx5 = styled.button`
-  padding: 2% 4%;
+  padding:${props => props.pad1} ${props => props.pad2};
   font-size: 1.3rem;
   border-radius: 5px;
   border: none;
@@ -106,7 +106,7 @@ const Start = () => {
         </ColDiv>
         <Tx3>CORE COMMITTEE SELECTIONS 2022</Tx3>
         <Tx4>ROUND 1</Tx4>
-        <Tx5>START QUIZ</Tx5>
+        <Tx5 pad1={"2%"} pad2={"4%"}>START QUIZ</Tx5>
       </TextDiv>
       <SocialDiv>
         <Socials />

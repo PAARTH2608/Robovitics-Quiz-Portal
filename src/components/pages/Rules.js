@@ -10,7 +10,7 @@ const TextDiv = styled.h1`
   color: #5be4ff;
   font-size: 3rem;
 `;
-const RulesDiv = styled.div`
+export const RulesDiv = styled.div`
   height: 60vh;
   width: 80%;
   border: 2px solid #5be4ff;
@@ -21,20 +21,20 @@ const RulesDiv = styled.div`
   }
   padding: 20px;
 `;
-const Para = styled.p`
+export const Para = styled.p`
   color: white;
   font-size: 1.3rem;
   padding-bottom: 20px;
 `;
-const LogoDiv = styled.div`
+export const LogoDiv = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   padding: 2%;
 `;
-const Img = styled.img`
+export const Img = styled.img`
   height: 10%;
-  width: 35%;
+  width: 25%;
 `;
 const BoxTwo = styled.h1`
   height: 20vh;
@@ -115,7 +115,9 @@ const Rules = () => {
           scrambled it to make a type specimen book
         </Para>
       </RulesDiv>
-      <Tx5>START</Tx5>
+      <Tx5 pad1={"2%"} pad2={"4%"}>
+        START
+      </Tx5>
       <LogoDiv src={Logo} alt="logo">
         <Img src={Logo} alt="logo" />
       </LogoDiv>
@@ -125,8 +127,8 @@ const Rules = () => {
       <SocialDiv>
         <Socials />
       </SocialDiv>
-      <LineDiv src={Line} alt="line"/>
-      <DotDiv src={Dot} alt="dot"/>
+      <LineDiv src={Line} alt="line" />
+      <DotDiv src={Dot} alt="dot" />
     </MainDiv>
   );
 };
