@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { QuestionDiv, Para } from "./CSE";
 
 const Electrical = () => {
