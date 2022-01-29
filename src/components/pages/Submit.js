@@ -68,7 +68,7 @@ const Submit = () => {
       <Tx4>ARE YOU SURE YOU WANT TO SUBMIT QUIZ ?</Tx4>
       <HelperDiv>
         <Tx5 pad1={"1%"} pad2={"3%"}>
-          <Link to={'/domain'} style={{ textDecoration: 'none', color: 'black' }}>GO BACK</Link>
+          <Link to={'/domains'} style={{ textDecoration: 'none', color: 'black' }}>GO BACK</Link>
         </Tx5>
         <Tx5 pad1={"1%"} pad2={"3%"}>
           <Link to={'/finish'} style={{ textDecoration: 'none', color: 'black' }}>SUBMIT QUIZ</Link>

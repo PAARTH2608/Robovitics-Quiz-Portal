@@ -1,12 +1,11 @@
-import { Route, Routes } from "react-router";
+import { useState } from "react";
 import styled from "styled-components";
 import { MainDiv, Tx5 } from "./Start";
-import { RulesDiv, Img, LogoDiv, Para } from "./Rules";
+import { RulesDiv, Img } from "./Rules";
 import Logo from "../../assets/RoboVITics-Logo.svg";
-import Management from "../subdomains/Management";
 import { Link } from "react-router-dom";
 import navList from "../utils/navItems.json";
-import { useState } from "react";
+import { BiRefresh } from "react-icons/bi";
 
 const P = styled.p`
   color: grey;
@@ -18,10 +17,9 @@ const P = styled.p`
     color: white;
     border-bottom: 3px solid #5be4ff;
   }
-  &:active{
+  &:active {
     color: white;
     border-bottom: 3px solid #5be4ff;
-    
   }
 `;
 const DomainNames = styled.div`
@@ -31,26 +29,44 @@ const DomainNames = styled.div`
   width: 80%;
   padding-top: 10vh;
 `;
-const QuestionDiv = styled.div`
-  display: flex;
-  flex-direction: column;
+// const QuestionDiv = styled.div`
+//   display: flex;
+//   flex-direction: column;
+// `;
+const RefreshDiv = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 2%;
+  cursor: pointer;
+
+  transform: rotate(0deg);
+  overflow: hidden;
+  transition: all 0.6s ease-out;
+  ${({ rotate }) => rotate && `transform: rotate(360deg)`};
 `;
 
 const Domains = () => {
-    const [click, setClick] = useState(false);
-    // const handleClick = () => setClick(!click);
-    const handler = () => {
-        setClick(!click)
-    };
+  const [click, setClick] = useState(false);
+  const [rotate, setRotate] = useState(false);
+  // const handleClick = () => setClick(!click);
+  const handleClick = () => setRotate((prevState) => !prevState);
+  const handler = () => {
+    setClick(!click);
+  };
+  const refreshPage = () => {
+    window.location.reload(false);
+  };
   return (
     <MainDiv col={"column"}>
       <DomainNames>
         {navList.map((item, i) => (
-          <P key={i} onClick={handler} cl={click}>{item.display_name}</P>
+          <P key={i} onClick={handler} cl={click}>
+            {item.display_name}
+          </P>
         ))}
       </DomainNames>
       <RulesDiv>
-
         {/* <QuestionDiv>
           <Para>
             1. Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -121,11 +137,16 @@ const Domains = () => {
         </Para> */}
       </RulesDiv>
       <Tx5 pad1={"1%"} pad2={"2%"}>
-        <Link to={'/submit'} style={{ textDecoration: 'none', color: 'black' }}>UPLOAD QUIZ</Link>
+        <Link to={"/submit"} style={{ textDecoration: "none", color: "black" }}>
+          UPLOAD QUIZ
+        </Link>
       </Tx5>
-      <LogoDiv src={Logo} alt="logo">
-        <Img src={Logo} alt="logo" />
-      </LogoDiv>
+      <RefreshDiv rotate={rotate} onClick={handleClick}>
+        <BiRefresh
+          style={{ color: "white", fontSize: "3rem" }}
+          onClick={refreshPage}
+        />
+      </RefreshDiv>
     </MainDiv>
   );
 };
