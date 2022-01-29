@@ -38,12 +38,9 @@ export const Img = styled.img`
   width: 25%;
 `;
 const BoxTwo = styled.div`
-  // height: 20vh;
   width: 100%;
   position: absolute;
   top: 0;
-  right:0;
-  border:2px solid green;
 `;
 const Rules = () => {
   return (
