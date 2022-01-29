@@ -37,7 +37,7 @@ export const Img = styled.img`
   height: 10%;
   width: 25%;
 `;
-const BoxTwo = styled.div`
+export const BoxTwo = styled.div`
   width: 100%;
   position: absolute;
   top: 0;

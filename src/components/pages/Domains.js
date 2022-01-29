@@ -1,9 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { MainDiv, Tx5 } from "./Start";
-import { RulesDiv, Img } from "./Rules";
+import { RulesDiv } from "./Rules";
 import { Link } from "react-router-dom";
-import navList from "../utils/navItems.json";
+import { BoxTwo } from "./Rules";
+import Counter from "../utils/Counter";
 import { BiRefresh } from "react-icons/bi";
 import Management from "../subdomains/Management";
 import Logical from "../subdomains/Logical";
@@ -130,6 +131,9 @@ const Domains = () => {
           onClick={refreshPage}
         />
       </RefreshDiv>
+      <BoxTwo>
+        <Counter countdownTimestampMs={1645983662000} />
+      </BoxTwo>
     </MainDiv>
   );
 };
