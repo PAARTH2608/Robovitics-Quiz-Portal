@@ -6,6 +6,7 @@ import Logo from "../../assets/RoboVITics-Logo.svg";
 import { Link } from "react-router-dom";
 import navList from "../utils/navItems.json";
 import { BiRefresh } from "react-icons/bi";
+import CSE from "../subdomains/CSE";
 
 const P = styled.p`
   color: grey;
@@ -47,13 +48,9 @@ const RefreshDiv = styled.div`
 `;
 
 const Domains = () => {
-  const [click, setClick] = useState(false);
   const [rotate, setRotate] = useState(false);
-  // const handleClick = () => setClick(!click);
   const handleClick = () => setRotate((prevState) => !prevState);
-  const handler = () => {
-    setClick(!click);
-  };
+
   const refreshPage = () => {
     window.location.reload(false);
   };
@@ -61,12 +58,13 @@ const Domains = () => {
     <MainDiv col={"column"}>
       <DomainNames>
         {navList.map((item, i) => (
-          <P key={i} onClick={handler} cl={click}>
+          <P key={i}>
             {item.display_name}
           </P>
         ))}
       </DomainNames>
       <RulesDiv>
+        <CSE />
         {/* <QuestionDiv>
           <Para>
             1. Lorem Ipsum is simply dummy text of the printing and typesetting
