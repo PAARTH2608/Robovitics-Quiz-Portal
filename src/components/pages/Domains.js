@@ -2,11 +2,14 @@ import { useState } from "react";
 import styled from "styled-components";
 import { MainDiv, Tx5 } from "./Start";
 import { RulesDiv, Img } from "./Rules";
-import Logo from "../../assets/RoboVITics-Logo.svg";
 import { Link } from "react-router-dom";
 import navList from "../utils/navItems.json";
 import { BiRefresh } from "react-icons/bi";
+import Management from "../subdomains/Management";
+import Logical from "../subdomains/Logical";
+import Mechanical from "../subdomains/Mech";
 import CSE from "../subdomains/CSE";
+import Electrical from "../subdomains/Electrical";
 
 const P = styled.p`
   color: grey;
@@ -30,10 +33,6 @@ const DomainNames = styled.div`
   width: 80%;
   padding-top: 10vh;
 `;
-// const QuestionDiv = styled.div`
-//   display: flex;
-//   flex-direction: column;
-// `;
 const RefreshDiv = styled.div`
   position: absolute;
   top: 0;
@@ -54,85 +53,60 @@ const Domains = () => {
   const refreshPage = () => {
     window.location.reload(false);
   };
+
+  const [clickOne, setClickOne] = useState(false);
+  const [clickTwo, setClickTwo] = useState(false);
+  const [clickThree, setClickThree] = useState(false);
+  const [clickFour, setClickFour] = useState(false);
+  const [clickFive, setClickFive] = useState(false);
+
+  const handlerOne = () => {
+    setClickOne(true);
+  };
+  const handlerTwo = () => {
+    setClickOne(false);
+    setClickTwo(true);
+    setClickThree(false);
+    setClickFour(false);
+    setClickFive(false);
+  };
+  const handlerThree = () => {
+    setClickOne(false);
+    setClickTwo(false);
+    setClickThree(true);
+    setClickFour(false);
+    setClickFive(false);
+  };
+  const handlerFour = () => {
+    setClickOne(false);
+    setClickTwo(false);
+    setClickThree(false);
+    setClickFour(true);
+    setClickFive(false);
+  };
+  const handlerFive = () => {
+    setClickOne(false);
+    setClickTwo(false);
+    setClickThree(false);
+    setClickFour(false);
+    setClickFive(true);
+  };
+
   return (
     <MainDiv col={"column"}>
       <DomainNames>
-        {navList.map((item, i) => (
-          <P key={i}>
-            {item.display_name}
-          </P>
-        ))}
+        <P onClick={handlerOne}>Management</P>
+        <P onClick={handlerTwo}>Logical</P>
+        <P onClick={handlerThree}>Mechanical</P>
+        <P onClick={handlerFour}>CSE</P>
+        <P onClick={handlerFive}>Electrical</P>
       </DomainNames>
       <RulesDiv>
-        <CSE />
-        {/* <QuestionDiv>
-          <Para>
-            1. Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book
-          </Para>
-        </QuestionDiv> */}
-        {/* <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para> */}
+        {clickOne && <Management />}
+        {clickTwo && <Logical />}
+        {clickThree && <Mechanical />}
+        {clickFour && <CSE />}
+        {clickFive && <Electrical />}
       </RulesDiv>
       <Tx5 pad1={"1%"} pad2={"2%"}>
         <Link to={"/submit"} style={{ textDecoration: "none", color: "black" }}>
