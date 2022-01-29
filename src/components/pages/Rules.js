@@ -37,12 +37,13 @@ export const Img = styled.img`
   height: 10%;
   width: 25%;
 `;
-const BoxTwo = styled.h1`
-  height: 20vh;
+const BoxTwo = styled.div`
+  // height: 20vh;
   width: 100%;
   position: absolute;
   top: 0;
-  //   right:0;
+  right:0;
+  border:2px solid green;
 `;
 const Rules = () => {
   return (
@@ -122,9 +123,9 @@ const Rules = () => {
       <LogoDiv src={Logo} alt="logo">
         <Img src={Logo} alt="logo" />
       </LogoDiv>
-      {/* <BoxTwo>
+      <BoxTwo>
         <Counter countdownTimestampMs={1645983662000} />
-      </BoxTwo> */}
+      </BoxTwo>
       <SocialDiv>
         <Socials />
       </SocialDiv>

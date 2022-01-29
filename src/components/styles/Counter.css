@@ -2,10 +2,12 @@
     width: fit-content;
     display: flex;
     align-items: center;
+    margin-left: auto;
+    padding-right: 3%;
 }
 .two-numbers{
     color: white;
-    font-size: 4rem;
+    font-size: 2rem;
 }
 @media screen and (max-width: 1200px){
     .two-numbers{
