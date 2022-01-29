@@ -12,16 +12,13 @@ import CSE from "../subdomains/CSE";
 import Electrical from "../subdomains/Electrical";
 
 const P = styled.p`
-  color: grey;
+  color: ${(props) => (props.active ? "white" : "grey")};
   font-size: 1.5rem;
   height: 100%;
   cursor: pointer;
+  border-bottom: ${(props) => props.active && "3px solid #5be4ff"};
 
   &:hover {
-    color: white;
-    border-bottom: 3px solid #5be4ff;
-  }
-  &:active {
     color: white;
     border-bottom: 3px solid #5be4ff;
   }
@@ -54,7 +51,7 @@ const Domains = () => {
     window.location.reload(false);
   };
 
-  const [clickOne, setClickOne] = useState(false);
+  const [clickOne, setClickOne] = useState(true);
   const [clickTwo, setClickTwo] = useState(false);
   const [clickThree, setClickThree] = useState(false);
   const [clickFour, setClickFour] = useState(false);
@@ -62,6 +59,10 @@ const Domains = () => {
 
   const handlerOne = () => {
     setClickOne(true);
+    setClickTwo(false);
+    setClickThree(false);
+    setClickFour(false);
+    setClickFive(false);
   };
   const handlerTwo = () => {
     setClickOne(false);
@@ -95,11 +96,21 @@ const Domains = () => {
   return (
     <MainDiv col={"column"}>
       <DomainNames>
-        <P onClick={handlerOne}>Management</P>
-        <P onClick={handlerTwo}>Logical</P>
-        <P onClick={handlerThree}>Mechanical</P>
-        <P onClick={handlerFour}>CSE</P>
-        <P onClick={handlerFive}>Electrical</P>
+        <P active={clickOne} onClick={handlerOne}>
+          Management
+        </P>
+        <P active={clickTwo} onClick={handlerTwo}>
+          Logical
+        </P>
+        <P active={clickThree} onClick={handlerThree}>
+          Mechanical
+        </P>
+        <P active={clickFour} onClick={handlerFour}>
+          CSE
+        </P>
+        <P active={clickFive} onClick={handlerFive}>
+          Electrical
+        </P>
       </DomainNames>
       <RulesDiv>
         {clickOne && <Management />}
