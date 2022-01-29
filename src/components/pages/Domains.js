@@ -37,6 +37,7 @@ const RefreshDiv = styled.div`
   left: 0;
   padding: 2%;
   cursor: pointer;
+  z-index:599;
 
   transform: rotate(0deg);
   overflow: hidden;
