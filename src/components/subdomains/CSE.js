@@ -12,7 +12,7 @@ const CSE = props => {
   return (
     <QuestionDiv>
       {props.packet.map((item) => (
-        <Div>
+        <Div key={item._id}>
           <Para>{item.text}</Para>
           <Div2>
           <Img src={item.photoURL} alt="pic"/>

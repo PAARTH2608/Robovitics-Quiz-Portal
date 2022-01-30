@@ -19,6 +19,7 @@ const initialState = {
   isLoggedIn: false,
   hasUploaded:false,
   message: '',
+  testEndAt:''
 };
 
 const AuthReducer = (state = initialState, action) => {
@@ -40,6 +41,7 @@ const AuthReducer = (state = initialState, action) => {
         isLoggedIn: true,
         hasUploaded: action.data.hasUploaded,
         message:'ok',
+        testEndAt:action.data.testEndAt
       }
     case AuthTypes.LOGIN_ERROR:
       return {

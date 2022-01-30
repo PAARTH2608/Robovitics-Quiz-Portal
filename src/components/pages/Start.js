@@ -79,7 +79,7 @@ export const Tx5 = styled.button`
   }
 `;
 const Tx6 = styled.h2`
-color:white;
+  color: white;
 `;
 export const ColDiv = styled.div`
   display: flex;
@@ -129,11 +129,11 @@ export const BoxTwo = styled.div`
 
 const Start = () => {
   const [error, setError] = useState(false);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-  const isUploaded = useSelector(state => state.auth.hasUploaded);
-  const slot = useSelector(state => state.auth.slot.timing);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isUploaded = useSelector((state) => state.auth.hasUploaded);
+  const slot = useSelector((state) => state.auth.slot.timing);
 
   const dispatch = useDispatch();
 
@@ -149,9 +149,6 @@ const Start = () => {
     dispatch(login({ email: userEmail }));
   };
   const date = new Date(slot);
-  console.log(date.getTime());
-    
-
 
   return (
     <MainDiv>
@@ -165,32 +162,43 @@ const Start = () => {
         </ColDiv>
         <Tx3>CORE COMMITTEE SELECTIONS 2022</Tx3>
         <Tx4>ROUND 1</Tx4>
-        {!isLoggedIn && <Tx5 pad1={"2%"} pad2={"4%"}>
-          <Link
-            to={"/"}
-            style={{ textDecoration: "none", color: "black" }}
-            onClick={toggleHandler}
-          >
-            LOGIN
-          </Link>
-          <Input placeholder="Enter your vit-email" type="text" value={email} onChange={e => setEmail(e.target.value)}/>
-        </Tx5>}
-        {isLoggedIn && !isUploaded && parseInt(date.getTime())<0 && <Tx5 pad1={"2%"} pad2={"4%"}>
-          <Link
-            to={"/rules"}
-            style={{ textDecoration: "none", color: "black" }}
-            onSubmit={toggleHandler}
-          >
-            START QUIZ
-          </Link>
-        </Tx5>}
-        {isLoggedIn && isUploaded && <Tx6>
-          You have successfully submitted!
-        </Tx6>}
-        {isLoggedIn && parseInt(date.getTime())>=0 && <BoxTwo>
-          <Tx6>Your test starts in </Tx6>
-        <StartPageCounter countdownTimestampMs={date.getTime()} />
-      </BoxTwo>}
+        {!isLoggedIn && (
+          <Tx5 pad1={"2%"} pad2={"4%"}>
+            <Link
+              to={"/"}
+              style={{ textDecoration: "none", color: "black" }}
+              onClick={toggleHandler}
+            >
+              LOGIN
+            </Link>
+            <Input
+              placeholder="Enter your vit-email"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Tx5>
+        )}
+        {isLoggedIn && !isUploaded && parseInt(date.getTime()) < 0 && (
+          <Tx5 pad1={"2%"} pad2={"4%"}>
+            <Link
+              to={"/rules"}
+              style={{ textDecoration: "none", color: "black" }}
+              onSubmit={toggleHandler}
+            >
+              START QUIZ
+            </Link>
+          </Tx5>
+        )}
+        {isLoggedIn && isUploaded && (
+          <Tx6>You have successfully submitted!</Tx6>
+        )}
+        {isLoggedIn && parseInt(date.getTime()) >= 0 && (
+          <BoxTwo>
+            <Tx6>Your test starts in </Tx6>
+            <StartPageCounter countdownTimestampMs={date.getTime()} />
+          </BoxTwo>
+        )}
       </TextDiv>
       <SocialDiv>
         <Socials />

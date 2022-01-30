@@ -8,7 +8,7 @@ import Counter from "../utils/Counter";
 import Logo from "../../assets/RoboVITics-Logo.svg";
 import Line from "../../assets/line.svg";
 import Dot from "../../assets/dot.svg";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 
 const TextDiv = styled.h1`
@@ -53,6 +53,16 @@ const Rules = () => {
     dispatch(questionFetch({ id: id }));
   } , [id, dispatch]);
 
+  const testEndAt = useSelector(state => state.auth.testEndAt);
+  const date = new Date(testEndAt);
+  console.log(date.getTime())
+  
+var time = 1643568257517
+useEffect(() => {
+  if(time <= 0){
+    <Navigate to="/"/>
+  }
+}, [time])
   return (
     <MainDiv col={"column"}>
       <TextDiv>RULES</TextDiv>
@@ -131,7 +141,7 @@ const Rules = () => {
         <Img src={Logo} alt="logo" />
       </LogoDiv>
       <BoxTwo>
-        <Counter countdownTimestampMs={1645983662000} />
+        <Counter countdownTimestampMs={time} />
       </BoxTwo>
       <SocialDiv>
         <Socials />

@@ -12,7 +12,7 @@ import Logical from "../subdomains/Logical";
 import Mechanical from "../subdomains/Mech";
 import CSE from "../subdomains/CSE";
 import Electrical from "../subdomains/Electrical";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const P = styled.p`
   color: ${(props) => (props.active ? "white" : "grey")};
@@ -99,6 +99,10 @@ const Domains = () => {
 
   const questionFetch = useSelector((state) => state.question);
 
+  const testEndAt = useSelector(state => state.auth.testEndAt);
+  const date = new Date(testEndAt);
+  
+
   return (
     <MainDiv col={"column"}>
       <DomainNames>
@@ -137,7 +141,7 @@ const Domains = () => {
         />
       </RefreshDiv>
       <BoxTwo>
-        <Counter countdownTimestampMs={1645983662000} />
+        <Counter countdownTimestampMs={date.getTime()} />
       </BoxTwo>
     </MainDiv>
   );
