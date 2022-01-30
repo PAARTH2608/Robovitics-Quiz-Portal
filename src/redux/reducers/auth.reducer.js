@@ -2,37 +2,51 @@ import {AuthTypes} from '../types';
 
 const initialState = {
   loading: false,
-  phone: '',
-  password: '',
-  token: '',
+  email: '',
+  id: '',
+  registrationNumber: '',
+  testStarted:'',
+  QuestionSet:'',
+  slot:{
+    id:'',
+    code:'',
+    timing:'',
+    isActive:false
+  },
   showLanding: false,
   validCredentials: false,
-  isLoggedIn: false
+  isLoggedIn: false,
+  message: '',
 };
 
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
     case AuthTypes.LOGIN_SUCCESS:
       return {
-        name: action.data.adminInfo.name,
-        phone: action.data.adminInfo.phone,
-        token: action.data.token,
+        email: action.data.email,
+        id: action.data._id,
         showLanding: !state.showLanding,
-        validCredentials: true,
+        registrationNumber: action.data.registrationNumber,
+        testStarted: action.data.testStarted,
+        QuestionSet: action.data.QuestionSet,
+        slot:{
+          id:action.data.slot._id,
+          code:action.data.slot.code,
+          timing:action.data.slot.timing,
+          isActive:action.data.slot.isActive
+        },
         isLoggedIn: true,
+        message:'ok',
       }
     case AuthTypes.LOGIN_ERROR:
       return {
-        message: action.error,
-        validCredentials:false,
-        isLoggedIn: false
+        isLoggedIn: false,
+        message: action.error.message,
       }
     case AuthTypes.LOGOUT_REQUEST:
       return {
         ...state,
-        phone: '',
-        password: '',
-        token: '',
+        email: '',
         showLanding: false,
         isLoggedIn: false
       };

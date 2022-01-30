@@ -6,6 +6,7 @@ import Logo from "../../assets/RoboVITics-Logo.svg";
 import Line from "../../assets/line.svg";
 import Dot from "../../assets/dot.svg";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const TextDiv = styled.h1`
   color: #5be4ff;
@@ -43,6 +44,10 @@ export const BoxTwo = styled.div`
   top: 0;
 `;
 const Rules = () => {
+
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  console.log(isLoggedIn);
+
   return (
     <MainDiv col={"column"}>
       <TextDiv>RULES</TextDiv>

@@ -1,6 +1,9 @@
-import { Link } from "react-router-dom";
+import { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Socials from "../utils/Socials";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/actions/auth.action";
 import Robo from "../../assets/robo.svg";
 import Logo from "../../assets/RoboVITics-Logo.svg";
 import Line from "../../assets/line.svg";
@@ -97,8 +100,50 @@ export const DotDiv = styled.img`
   bottom: 3%;
   left: 28px;
 `;
+const Input = styled.input`
+  padding: 0.5%;
+  margin: 0.5%;
+  background: transparent;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  border-bottom: 2px solid rgb(228, 127, 171);
+  font-size: 1rem;
+  outline: none;
+  text-align: center;
+
+  &:focus {
+    transform: scale(1.1);
+  }
+`;
 
 const Start = () => {
+  const [error, setError] = useState(false);
+  const [email, setEmail] = useState('');
+
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
+
+  const toggleHandler = () => {
+    const userEmail = email;
+    const isUserIdValid = userEmail.length > 0;
+
+    if (!isUserIdValid) {
+      setError(true);
+      return;
+    }
+    setError(false);
+    dispatch(login({ email: userEmail }));
+    // navigate.push("/rules");
+
+    console.log(userEmail)
+  };
+
+
+  // const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  // console.log(isLoggedIn);
+  // console.log(userEmailInputRef.current.value);
+  // console.log(email);
+
   return (
     <MainDiv>
       <ImgDiv>
@@ -113,12 +158,23 @@ const Start = () => {
         <Tx4>ROUND 1</Tx4>
         <Tx5 pad1={"2%"} pad2={"4%"}>
           <Link
+            to={"/"}
+            style={{ textDecoration: "none", color: "black" }}
+            onClick={toggleHandler}
+          >
+            LOGIN
+          </Link>
+          <Input placeholder="Enter your vit-email" type="text" value={email} onChange={e => setEmail(e.target.value)}/>
+        </Tx5>
+        {/* <Tx5 pad1={"2%"} pad2={"4%"}>
+          <Link
             to={"/rules"}
             style={{ textDecoration: "none", color: "black" }}
+            onSubmit={toggleHandler}
           >
             START QUIZ
           </Link>
-        </Tx5>
+        </Tx5> */}
       </TextDiv>
       <SocialDiv>
         <Socials />
