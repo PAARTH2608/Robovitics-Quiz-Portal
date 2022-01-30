@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Div, Img, Div2 } from "./Management";
 
 export const QuestionDiv = styled.div``;
 export const Para = styled.p`
@@ -10,8 +11,13 @@ export const Para = styled.p`
 const CSE = props => {
   return (
     <QuestionDiv>
-      {props.packet.map(item => (
-        <Para>{item.text}</Para>
+      {props.packet.map((item) => (
+        <Div>
+          <Para>{item.text}</Para>
+          <Div2>
+          <Img src={item.photoURL} alt="pic"/>
+          </Div2>
+        </Div>
       ))}
     </QuestionDiv>
   );
