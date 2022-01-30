@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Socials from "../utils/Socials";
 import StartPageCounter from "../utils/StartPageCounter";
@@ -128,7 +128,7 @@ export const BoxTwo = styled.div`
 `;
 
 const Start = () => {
-  const [error, setError] = useState(false);
+  // const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -142,10 +142,10 @@ const Start = () => {
     const isUserIdValid = userEmail.length > 0;
 
     if (!isUserIdValid) {
-      setError(true);
+      
       return;
     }
-    setError(false);
+    
     dispatch(login({ email: userEmail }));
   };
   const date = new Date(slot);

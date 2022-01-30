@@ -1,4 +1,3 @@
-import { FaSleigh } from 'react-icons/fa';
 import {AuthTypes} from '../types';
 
 const initialState = {

@@ -57,12 +57,12 @@ const Rules = () => {
   const date = new Date(testEndAt);
   console.log(date.getTime())
   
-var time = 1643568257517
+
 useEffect(() => {
-  if(time <= 0){
+  if(date.getTime() <= 0){
     <Navigate to="/"/>
   }
-}, [time])
+}, [date.getTime()])
   return (
     <MainDiv col={"column"}>
       <TextDiv>RULES</TextDiv>
@@ -141,7 +141,7 @@ useEffect(() => {
         <Img src={Logo} alt="logo" />
       </LogoDiv>
       <BoxTwo>
-        <Counter countdownTimestampMs={time} />
+        <Counter countdownTimestampMs={date.getTime()} />
       </BoxTwo>
       <SocialDiv>
         <Socials />

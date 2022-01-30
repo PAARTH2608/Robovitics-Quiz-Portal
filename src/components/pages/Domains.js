@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { MainDiv, Tx5 } from "./Start";
 import { RulesDiv } from "./Rules";
 import { Link } from "react-router-dom";
-
 import { BoxTwo } from "./Rules";
 import Counter from "../utils/Counter";
 import { BiRefresh } from "react-icons/bi";
@@ -12,7 +11,7 @@ import Logical from "../subdomains/Logical";
 import Mechanical from "../subdomains/Mech";
 import CSE from "../subdomains/CSE";
 import Electrical from "../subdomains/Electrical";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const P = styled.p`
   color: ${(props) => (props.active ? "white" : "grey")};
