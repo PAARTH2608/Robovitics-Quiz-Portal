@@ -1,0 +1,40 @@
+.countdown-timer{
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding-right: 3%;
+}
+.two-numbers{
+    color: white;
+    font-size: 2rem;
+}
+@media screen and (max-width: 1100px){
+    .countdown-timer{
+        justify-content: center;
+    }
+}
+@media screen and (max-width: 870px){
+    .two-numbers{
+        font-size: 1.4rem;
+    }
+    .countdown-timer{
+        width: fit-content;
+    }
+}
+.tags{
+    color: white;
+    font-size: 1rem;
+}
+.cover{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.cov{
+    padding: 1rem;
+    font-size: 2rem;
+    color: white;
+    font-weight: 900;
+}

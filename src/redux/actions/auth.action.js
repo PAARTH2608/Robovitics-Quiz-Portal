@@ -7,6 +7,7 @@ export const login = (data) => ({
 export const loginError = () => ({
   type: AuthTypes.LOGIN_ERROR
 })
+
 export const loggenIn = (user) => ({
   type: AuthTypes.LOGIN_SUCCESS,
   payload: user,

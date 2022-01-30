@@ -1,3 +1,4 @@
+import { FaSleigh } from 'react-icons/fa';
 import {AuthTypes} from '../types';
 
 const initialState = {
@@ -5,7 +6,7 @@ const initialState = {
   email: '',
   id: '',
   registrationNumber: '',
-  testStarted:'',
+  testStarted:false,
   QuestionSet:'',
   slot:{
     id:'',
@@ -16,6 +17,7 @@ const initialState = {
   showLanding: false,
   validCredentials: false,
   isLoggedIn: false,
+  hasUploaded:false,
   message: '',
 };
 
@@ -36,6 +38,7 @@ const AuthReducer = (state = initialState, action) => {
           isActive:action.data.slot.isActive
         },
         isLoggedIn: true,
+        hasUploaded: action.data.hasUploaded,
         message:'ok',
       }
     case AuthTypes.LOGIN_ERROR:

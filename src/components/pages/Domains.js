@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { MainDiv, Tx5 } from "./Start";
 import { RulesDiv } from "./Rules";
 import { Link } from "react-router-dom";
+
 import { BoxTwo } from "./Rules";
 import Counter from "../utils/Counter";
 import { BiRefresh } from "react-icons/bi";
@@ -11,6 +12,7 @@ import Logical from "../subdomains/Logical";
 import Mechanical from "../subdomains/Mech";
 import CSE from "../subdomains/CSE";
 import Electrical from "../subdomains/Electrical";
+import { useSelector } from "react-redux";
 
 const P = styled.p`
   color: ${(props) => (props.active ? "white" : "grey")};
@@ -95,6 +97,8 @@ const Domains = () => {
     setClickFive(true);
   };
 
+  const questionFetch = useSelector((state) => state.question);
+
   return (
     <MainDiv col={"column"}>
       <DomainNames>
@@ -115,11 +119,11 @@ const Domains = () => {
         </P>
       </DomainNames>
       <RulesDiv>
-        {clickOne && <Management />}
-        {clickTwo && <Logical />}
-        {clickThree && <Mechanical />}
-        {clickFour && <CSE />}
-        {clickFive && <Electrical />}
+        {clickOne && <Management packet={questionFetch.SET.MGM}/>}
+        {clickTwo && <Logical packet={questionFetch.SET.LOG}/>}
+        {clickThree && <Mechanical packet={questionFetch.SET.MEC}/>}
+        {clickFour && <CSE packet={questionFetch.SET.CSE}/>}
+        {clickFive && <Electrical packet={questionFetch.SET.ELE}/>}
       </RulesDiv>
       <Tx5 pad1={"1%"} pad2={"2%"}>
         <Link to={"/submit"} style={{ textDecoration: "none", color: "black" }}>

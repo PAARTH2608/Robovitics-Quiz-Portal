@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { questionFetch } from "../../redux/actions/que.actions";
 import styled from "styled-components";
 import Socials from "../utils/Socials";
 import { MainDiv, Tx5, SocialDiv, LineDiv, DotDiv } from "./Start";
@@ -6,7 +9,7 @@ import Logo from "../../assets/RoboVITics-Logo.svg";
 import Line from "../../assets/line.svg";
 import Dot from "../../assets/dot.svg";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+
 
 const TextDiv = styled.h1`
   color: #5be4ff;
@@ -44,9 +47,11 @@ export const BoxTwo = styled.div`
   top: 0;
 `;
 const Rules = () => {
-
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-  console.log(isLoggedIn);
+  const id = useSelector(state => state.auth.id);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(questionFetch({ id: id }));
+  } , [id, dispatch]);
 
   return (
     <MainDiv col={"column"}>

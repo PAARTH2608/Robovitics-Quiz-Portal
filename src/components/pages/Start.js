@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Socials from "../utils/Socials";
+import StartPageCounter from "../utils/StartPageCounter";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/actions/auth.action";
 import Robo from "../../assets/robo.svg";
@@ -77,6 +78,9 @@ export const Tx5 = styled.button`
   &:hover {
   }
 `;
+const Tx6 = styled.h2`
+color:white;
+`;
 export const ColDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -115,13 +119,23 @@ const Input = styled.input`
     transform: scale(1.1);
   }
 `;
+export const BoxTwo = styled.div`
+  bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+`;
 
 const Start = () => {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState('');
 
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const isUploaded = useSelector(state => state.auth.hasUploaded);
+  const slot = useSelector(state => state.auth.slot.timing);
+
   const dispatch = useDispatch();
-  let navigate = useNavigate();
 
   const toggleHandler = () => {
     const userEmail = email;
@@ -133,16 +147,11 @@ const Start = () => {
     }
     setError(false);
     dispatch(login({ email: userEmail }));
-    // navigate.push("/rules");
-
-    console.log(userEmail)
   };
+  const date = new Date(slot);
+  console.log(date.getTime());
+    
 
-
-  // const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-  // console.log(isLoggedIn);
-  // console.log(userEmailInputRef.current.value);
-  // console.log(email);
 
   return (
     <MainDiv>
@@ -156,7 +165,7 @@ const Start = () => {
         </ColDiv>
         <Tx3>CORE COMMITTEE SELECTIONS 2022</Tx3>
         <Tx4>ROUND 1</Tx4>
-        <Tx5 pad1={"2%"} pad2={"4%"}>
+        {!isLoggedIn && <Tx5 pad1={"2%"} pad2={"4%"}>
           <Link
             to={"/"}
             style={{ textDecoration: "none", color: "black" }}
@@ -165,8 +174,8 @@ const Start = () => {
             LOGIN
           </Link>
           <Input placeholder="Enter your vit-email" type="text" value={email} onChange={e => setEmail(e.target.value)}/>
-        </Tx5>
-        {/* <Tx5 pad1={"2%"} pad2={"4%"}>
+        </Tx5>}
+        {isLoggedIn && !isUploaded && parseInt(date.getTime())<0 && <Tx5 pad1={"2%"} pad2={"4%"}>
           <Link
             to={"/rules"}
             style={{ textDecoration: "none", color: "black" }}
@@ -174,7 +183,14 @@ const Start = () => {
           >
             START QUIZ
           </Link>
-        </Tx5> */}
+        </Tx5>}
+        {isLoggedIn && isUploaded && <Tx6>
+          You have successfully submitted!
+        </Tx6>}
+        {isLoggedIn && parseInt(date.getTime())>=0 && <BoxTwo>
+          <Tx6>Your test starts in </Tx6>
+        <StartPageCounter countdownTimestampMs={date.getTime()} />
+      </BoxTwo>}
       </TextDiv>
       <SocialDiv>
         <Socials />
