@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import { MainDiv, Tx5 } from "./Start";
 import { Img, LogoDiv } from "./Rules";
@@ -43,17 +43,29 @@ const Tx6 = styled.h2`
   color: #5be4ff;
   padding-top: 4vh;
 `;
+const Tx7 = styled.h2`
+color:white;
+font-size:1rem;
+`;
 const Submit = () => {
   const fileInputRef = useRef();
   const id = useSelector((state) => state.auth.id);
   const dispatch = useDispatch();
 
+  const [isLarge, setIsLarge] = useState(false);
+
   const fileUploadHandler = (e) => {
     e.preventDefault();
-    const formData = new FormData();
+    // const formData = new FormData();
     if(e.target.files[0]){
-      formData.append("file", e.target.files[0]);
-      dispatch(uploadDoc({formData, id}));
+      // formData.append("file", e.target.files[0]);
+      const file = e.target.files[0];
+      console.log(file.size);
+      if(file.size > 5000000){
+        setIsLarge(true);
+        return;
+      }
+      dispatch(uploadDoc({file, id}));
     }
   }
 
@@ -73,6 +85,7 @@ const Submit = () => {
       <Help1>
         <ImgDiv src={ImgLogo} onClick={() => fileInputRef.current.click()} />
         <Tx6>FILE UPLOAD</Tx6>
+        {isLarge && <Tx7>*File size is too large</Tx7>}
       </Help1>
       <Tx4>ARE YOU SURE YOU WANT TO SUBMIT QUIZ ?</Tx4>
       <HelperDiv>

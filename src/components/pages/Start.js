@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Socials from "../utils/Socials";
 import StartPageCounter from "../utils/StartPageCounter";
@@ -9,6 +9,8 @@ import Robo from "../../assets/robo.svg";
 import Logo from "../../assets/RoboVITics-Logo.svg";
 import Line from "../../assets/line.svg";
 import Dot from "../../assets/dot.svg";
+import { FaGoogle } from "react-icons/fa";
+import { GoogleLogin } from "react-google-login";
 
 export const MainDiv = styled.div`
   height: 100vh;
@@ -136,19 +138,38 @@ const Start = () => {
   const slot = useSelector((state) => state.auth.slot.timing);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const toggleHandler = () => {
     const userEmail = email;
     const isUserIdValid = userEmail.length > 0;
 
     if (!isUserIdValid) {
-      
       return;
     }
-    
+
     dispatch(login({ email: userEmail }));
   };
   const date = new Date(slot);
+
+  // const clientId =
+  //   "779374762899-3cnshb5pms6ks39et3ns7dj2e2v5nflo.apps.googleusercontent.com";
+  // const onLoginSuccess = (res) => {
+
+  //   setEmail(res.profileObj.email);
+  //   const isUserIdValid = res.profileObj.email.length > 0;
+  //   if (!isUserIdValid) {
+  //     return;
+  //   }
+
+  //   dispatch(login({ email: res.profileObj.email }));
+  // };
+  // const onLoginFailure = (res) => {
+  //   if(!isLoggedIn) {
+  //     navigate("/submit");
+  //   }
+  //   // console.log(res);
+  // };
 
   return (
     <MainDiv>
@@ -162,23 +183,32 @@ const Start = () => {
         </ColDiv>
         <Tx3>CORE COMMITTEE SELECTIONS 2022</Tx3>
         <Tx4>ROUND 1</Tx4>
-        {!isLoggedIn && (
-          <Tx5 pad1={"2%"} pad2={"4%"}>
-            <Link
-              to={"/"}
-              style={{ textDecoration: "none", color: "black" }}
-              onClick={toggleHandler}
-            >
-              LOGIN
-            </Link>
-            <Input
-              placeholder="Enter your vit-email"
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+        {/* {!isLoggedIn && (
+            <GoogleLogin
+              clientId={clientId}
+              buttonText="Sign In"
+              onSuccess={onLoginSuccess}
+              onFailure={onLoginFailure}
+              cookiePolicy={"single_host_origin"}
+              isSignedIn={true}
             />
-          </Tx5>
-        )}
+        )} */}
+        <Tx5 pad1={"2%"} pad2={"4%"}>
+          <Link
+            to={"/"}
+            style={{ textDecoration: "none", color: "black" }}
+            onClick={toggleHandler}
+          >
+            LOGIN
+          </Link>
+          <Input
+            placeholder="Enter your vit-email"
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </Tx5>
+
         {isLoggedIn && !isUploaded && parseInt(date.getTime()) < 0 && (
           <Tx5 pad1={"2%"} pad2={"4%"}>
             <Link
@@ -210,3 +240,19 @@ const Start = () => {
 };
 
 export default Start;
+
+{
+  /* <Link
+              to={"/"}
+              style={{ textDecoration: "none", color: "black" }}
+              onClick={toggleHandler}
+            >
+              LOGIN
+            </Link>
+            <Input
+              placeholder="Enter your vit-email"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            /> */
+}

@@ -3,9 +3,11 @@ import { BASE_API_URL } from "./constants";
 
 class UploadService {
   async uploadDoc(cred) {
-    console.log("from service ", cred);
+    const formData = new FormData();
+    formData.append("file", cred.file);
+    // console.log("from service ", formData.get("file"));
     const params = JSON.stringify({
-      Paper: cred.formData,
+      Paper: formData,
       id: cred.id,
     });
     try {
@@ -15,7 +17,7 @@ class UploadService {
         
         {
           headers: {
-            "content-type": "multipart/form-data",
+            "content-type": "application/pdf",
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
             'Access-Control-Allow-Credentials':true
