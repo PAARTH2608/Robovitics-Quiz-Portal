@@ -10,7 +10,7 @@ import Logo from "../../assets/RoboVITics-Logo.svg";
 import Line from "../../assets/line.svg";
 import Dot from "../../assets/dot.svg";
 import { FaGoogle } from "react-icons/fa";
-import { GoogleLogin } from "react-google-login";
+import { GoogleLogin, GoogleLogout } from "react-google-login";
 
 export const MainDiv = styled.div`
   height: 100vh;
@@ -135,7 +135,9 @@ const Start = () => {
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const isUploaded = useSelector((state) => state.auth.hasUploaded);
+  // dont use isUploaded
   const slot = useSelector((state) => state.auth.slot.timing);
+  const isActive = useSelector((state) => state.auth.slot.isActive);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -152,24 +154,24 @@ const Start = () => {
   };
   const date = new Date(slot);
 
-  // const clientId =
-  //   "779374762899-3cnshb5pms6ks39et3ns7dj2e2v5nflo.apps.googleusercontent.com";
-  // const onLoginSuccess = (res) => {
+  const clientId =
+    "779374762899-3cnshb5pms6ks39et3ns7dj2e2v5nflo.apps.googleusercontent.com";
+  const onLoginSuccess = (res) => {
 
-  //   setEmail(res.profileObj.email);
-  //   const isUserIdValid = res.profileObj.email.length > 0;
-  //   if (!isUserIdValid) {
-  //     return;
-  //   }
+    setEmail(res.profileObj.email);
+    const isUserIdValid = res.profileObj.email.length > 0;
+    if (!isUserIdValid) {
+      return;
+    }
 
-  //   dispatch(login({ email: res.profileObj.email }));
-  // };
-  // const onLoginFailure = (res) => {
-  //   if(!isLoggedIn) {
-  //     navigate("/submit");
-  //   }
-  //   // console.log(res);
-  // };
+    dispatch(login({ email: res.profileObj.email }));
+  };
+  const onLoginFailure = (res) => {
+    if(!isLoggedIn) {
+      navigate("/submit");
+    }
+    // console.log(res);
+  };
 
   return (
     <MainDiv>
@@ -183,7 +185,7 @@ const Start = () => {
         </ColDiv>
         <Tx3>CORE COMMITTEE SELECTIONS 2022</Tx3>
         <Tx4>ROUND 1</Tx4>
-        {/* {!isLoggedIn && (
+        {!isLoggedIn && (
             <GoogleLogin
               clientId={clientId}
               buttonText="Sign In"
@@ -192,8 +194,8 @@ const Start = () => {
               cookiePolicy={"single_host_origin"}
               isSignedIn={true}
             />
-        )} */}
-        <Tx5 pad1={"2%"} pad2={"4%"}>
+        )}
+        {/* <Tx5 pad1={"2%"} pad2={"4%"}>
           <Link
             to={"/"}
             style={{ textDecoration: "none", color: "black" }}
@@ -207,9 +209,9 @@ const Start = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-        </Tx5>
-
-        {isLoggedIn && !isUploaded && parseInt(date.getTime()) < 0 && (
+        </Tx5> */}
+        {/* !uploaded to be used */}
+        {isLoggedIn && isActive && !isUploaded && parseInt(date.getTime()) < 0 && (
           <Tx5 pad1={"2%"} pad2={"4%"}>
             <Link
               to={"/rules"}
@@ -220,10 +222,10 @@ const Start = () => {
             </Link>
           </Tx5>
         )}
-        {isLoggedIn && isUploaded && (
+        {isLoggedIn && isActive && isUploaded && (
           <Tx6>You have successfully submitted!</Tx6>
         )}
-        {isLoggedIn && parseInt(date.getTime()) >= 0 && (
+        {isLoggedIn && isActive && !isUploaded && parseInt(date.getTime()) >= 0 && (
           <BoxTwo>
             <Tx6>Your test starts in </Tx6>
             <StartPageCounter countdownTimestampMs={date.getTime()} />

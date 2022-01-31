@@ -12,10 +12,10 @@ function App() {
     <>
     <Routes>
         <Route exact path="/" element={<Start/>} />
-        {isUploaded && <Route path="/rules" element={<Rules/>} />}
-        {isUploaded && <Route path="/domains" element={<Domains/>} />}
-        {isUploaded && <Route path="/submit" element={<Submit/>} />}
-        {isUploaded && <Route path="/finish" element={<Finish/>} />}
+        {!isUploaded && <Route path="/rules" element={<Rules/>} />}
+        {!isUploaded && <Route path="/domains" element={<Domains/>} />}
+        {!isUploaded && <Route path="/submit" element={<Submit/>} />}
+        {!isUploaded && <Route path="/finish" element={<Finish/>} />}
       </Routes>
     </>
   );

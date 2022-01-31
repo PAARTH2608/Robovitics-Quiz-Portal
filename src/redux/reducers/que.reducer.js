@@ -2,6 +2,7 @@ import {AuthTypes} from '../types';
 
 const initialState = {
   loading: false,
+  CET:'',
   TEA: '',
   SET: {},
 };
@@ -10,6 +11,7 @@ const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
     case AuthTypes.QUESTION_SUCCESS:
       return {
+        CET: action.data.CET,
         TEA: action.data.TEA,
         SET: action.data.SET,
       }

@@ -12,6 +12,7 @@ const UploadReducer = (state = initialState, action) => {
       return {
         data: action.data.data,
         msg: action.data.msg,
+        isLoggedIn: true,
       }
     case AuthTypes.UPLOAD_ERROR:
       return {

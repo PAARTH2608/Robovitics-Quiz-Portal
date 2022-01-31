@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { QuestionDiv } from "./CSE";
-export const Div = styled.div`
+import { QuestionDiv, Para } from "./CSE";
+export const Div = styled.div`;
 padding-bottom: 6vh;
 `;
 export const Div2 = styled.div`
@@ -15,12 +15,14 @@ export const Img = styled.img`
 const Management = (props) => {
   return (
     <QuestionDiv>
-      {/* {props.packet.map((item) => (
-        <div>
+{props.packet.map((item) => (
+        <Div key={item._id}>
           <Para>{item.text}</Para>
-          <Img src={item.photoURL} alt="pic"/>
-        </div>
-      ))} */}
+          <Div2>
+            <Img src={item.photoURL} alt="pic" />
+          </Div2>
+        </Div>
+      ))}
     </QuestionDiv>
   );
 };

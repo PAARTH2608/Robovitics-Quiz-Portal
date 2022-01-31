@@ -12,7 +12,7 @@ const defaultRemainingTime = {
 
 const Counter = ({ countdownTimestampMs }) => {
   const [remainingTime, setRemainingTime] = useState(defaultRemainingTime);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -24,18 +24,18 @@ const Counter = ({ countdownTimestampMs }) => {
   function updateRemainingTime(countdown) {
     setRemainingTime(getRemainingTimeUntilMsTimestamp(countdown));
   }
-  const timeStart = new Date().getTime();
-  const timeDiff = countdownTimestampMs - timeStart;
+  // const timeStart = new Date().getTime();
+  // const timeDiff = countdownTimestampMs - timeStart;
   // console.log("current time",timeStart)
-  console.log("from counter",timeDiff);
+  // console.log("from counter",timeDiff);
 
 
-  useEffect(() => {
-  if(timeDiff <= 0){
-    navigate("/");
-    console.log("time is up");
-  }
-}, [timeDiff, navigate])
+//   useEffect(() => {
+//   if(timeDiff <= 0){
+//     // navigate("/");
+//     console.log("time is up");
+//   }
+// }, [timeDiff, navigate])
 
   return (
     <div className="countdown-timer">
