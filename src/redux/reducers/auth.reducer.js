@@ -41,6 +41,8 @@ const AuthReducer = (state = initialState, action) => {
         hasUploaded: action.data.hasUploaded,
         message:'ok',
         testEndAt:action.data.testEndAt
+        // testEndAt: 1643594472243
+        // 1643599964009
       }
     case AuthTypes.LOGIN_ERROR:
       return {

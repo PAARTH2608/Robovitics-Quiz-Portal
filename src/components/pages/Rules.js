@@ -54,15 +54,7 @@ const Rules = () => {
   } , [id, dispatch]);
 
   const testEndAt = useSelector(state => state.auth.testEndAt);
-  const date = new Date(testEndAt);
-  console.log(date.getTime())
-  
-
-useEffect(() => {
-  if(date.getTime() <= 0){
-    <Navigate to="/"/>
-  }
-}, [date.getTime()])
+  const date = new Date(testEndAt).getTime();
   return (
     <MainDiv col={"column"}>
       <TextDiv>RULES</TextDiv>
@@ -141,7 +133,7 @@ useEffect(() => {
         <Img src={Logo} alt="logo" />
       </LogoDiv>
       <BoxTwo>
-        <Counter countdownTimestampMs={date.getTime()} />
+        <Counter countdownTimestampMs={date} />
       </BoxTwo>
       <SocialDiv>
         <Socials />
