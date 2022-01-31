@@ -65,6 +65,9 @@ const Submit = () => {
         setIsLarge(true);
         return;
       }
+      else{
+        setIsLarge(false);
+      }
       dispatch(uploadDoc({file, id}));
     }
   }
