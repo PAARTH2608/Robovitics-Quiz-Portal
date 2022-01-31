@@ -5,6 +5,8 @@ import { Img, LogoDiv } from "./Rules";
 import Logo from "../../assets/RoboVITics-Logo.svg";
 import ImgLogo from "../../assets/Group.svg";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { uploadDoc } from "../../redux/actions/upload.action";
 
 const Tx1 = styled.h1`
   color: white;
@@ -43,10 +45,17 @@ const Tx6 = styled.h2`
 `;
 const Submit = () => {
   const fileInputRef = useRef();
+  const id = useSelector((state) => state.auth.id);
+  const dispatch = useDispatch();
 
-  const handleChange = (e) => {
-    // do something with event data
-  };
+  const fileUploadHandler = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    if(e.target.files[0]){
+      formData.append("file", e.target.files[0]);
+      dispatch(uploadDoc({formData, id}));
+    }
+  }
 
   return (
     <MainDiv col={"column"}>
@@ -55,7 +64,7 @@ const Submit = () => {
         <Tx2>RECRUITMENTS ROUNT 1</Tx2>
       </Help>
       <Tx3
-        onChange={handleChange}
+        onChange={fileUploadHandler}
         multiple={false}
         ref={fileInputRef}
         type={"file"}
@@ -71,7 +80,7 @@ const Submit = () => {
           <Link to={'/domains'} style={{ textDecoration: 'none', color: 'black' }}>GO BACK</Link>
         </Tx5>
         <Tx5 pad1={"1%"} pad2={"3%"}>
-          <Link to={'/finish'} style={{ textDecoration: 'none', color: 'black' }}>SUBMIT QUIZ</Link>
+          <Link to={'/finish'} style={{ textDecoration: 'none', color: 'black' }} >SUBMIT QUIZ</Link>
         </Tx5>
       </HelperDiv>
       <LogoDiv src={Logo} alt="logo">
