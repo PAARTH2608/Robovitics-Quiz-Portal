@@ -4,6 +4,7 @@ const initialState = {
   loading: false,
   data: '',
   msg: '',
+  random: false,
 };
 
 const UploadReducer = (state = initialState, action) => {
@@ -13,11 +14,13 @@ const UploadReducer = (state = initialState, action) => {
         data: action.data.data,
         msg: action.data.msg,
         isLoggedIn: true,
+        random: true
       }
     case AuthTypes.UPLOAD_ERROR:
       return {
         isLoggedIn: false,
         msg: action.error.msg,
+        random: false
       }
     case AuthTypes.UPLOAD_REQUEST:
       return {

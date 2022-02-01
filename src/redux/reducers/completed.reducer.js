@@ -3,7 +3,7 @@ import {AuthTypes} from '../types';
 const initialState = {
   loading: false,
   msg: '',
-  error: '',
+  err: '',
 };
 
 const CompletedReducer = (state = initialState, action) => {
@@ -16,8 +16,7 @@ const CompletedReducer = (state = initialState, action) => {
     case AuthTypes.COMPLETED_ERROR:
       return {
         isLoggedIn: false,
-        msg: action.data.msg,
-        error: '',
+        err: action.data.msg,
       }
     case AuthTypes.COMPLETED_REQUEST:
       return {

@@ -80,7 +80,8 @@ const Tx3 = styled.h2`
   color: #5be4ff;
   font-size: 2rem;
   font-family: "Roboto", sans-serif;
-  padding-bottom: 5vh;
+  padding-bottom: 2vh;
+  padding-top:3vh;
 
   @media (max-width: 900px) {
     color: white;
@@ -196,8 +197,9 @@ const Start = () => {
   const [email, setEmail] = useState("");
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const hasCompleted = useSelector((state) => state.auth.hasCompleted);
-  console.log("comp ",hasCompleted)
+  // const hasCompleted = useSelector((state) => state.auth.hasCompleted);
+  const random = useSelector((state) => state.upload.random);
+  // console.log("comp ",hasCompleted)
   const slot = useSelector((state) => state.auth.slot.timing);
   const isActive = useSelector((state) => state.auth.slot.isActive);
 
@@ -254,6 +256,7 @@ const Start = () => {
     color: "transparent",
     border: "1px solid white",
   }
+  console.log(isLoggedIn, isActive)
 
   return (
     <MainDiv>
@@ -285,7 +288,7 @@ const Start = () => {
             />
           )}
           {/* !uploaded to be used */}
-          {isLoggedIn && isActive && !hasCompleted && parseInt(diff) <= 0 && (
+          {isLoggedIn && isActive && !random && parseInt(diff) <= 0 && (
             <Tx5 pad1={"2%"} pad2={"4%"} pd1={"5%"} pd2={"8%"}>
               <Link
                 to={"/rules"}
@@ -296,10 +299,10 @@ const Start = () => {
               </Link>
             </Tx5>
           )}
-          {isLoggedIn && isActive && hasCompleted && (
+          {isLoggedIn && isActive && random && (
             <Tx6>You have successfully submitted!</Tx6>
           )}
-          {isLoggedIn && isActive && !hasCompleted && parseInt(diff) > 0 && (
+          {isLoggedIn && isActive && !random && parseInt(diff) > 0 && (
             <BoxTwo>
               <Tx6>Your test starts in </Tx6>
               <StartPageCounter countdownTimestampMs={date.getTime()} />

@@ -87,8 +87,8 @@ const Rules = () => {
     dispatch(questionFetch({ id: id }));
   }, [id, dispatch]);
 
-  const testEndAt = useSelector((state) => state.auth.testEndAt);
-  const date = new Date(testEndAt);
+  const TEA = useSelector((state) => state.question.TEA);
+  const date = new Date(TEA);
 
   const [rotate, setRotate] = useState(false);
   const handleClick = () => setRotate((prevState) => !prevState);
@@ -99,8 +99,8 @@ const Rules = () => {
     <MainDiv col={"column"}>
       <TextDiv>RULES</TextDiv>
       <RulesDiv>
-        {rules.map((rule) => (
-          <Para>{rule}</Para>
+        {rules.map((rule, i) => (
+          <Para key={i}>{rule}</Para>
         ))}
       </RulesDiv>
       <Tx5 pad1={"2%"} pad2={"4%"} pad1S={"3%"} pad2S={"8%"}>
