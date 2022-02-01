@@ -13,19 +13,19 @@ const routes = (isLoggedIn, hasCompleted) => [
   },
   {
     path: '/rules',
-    element: (isLoggedIn && !hasCompleted) ? <Rules /> : <Navigate to="/error" />,
+    element: (isLoggedIn && !hasCompleted) ? <Rules /> : <Navigate to="/" />,
   },
   {
     path: '/domains',
-    element: (isLoggedIn && !hasCompleted) ? <Domains /> : <Navigate to="/error" />,
+    element: (isLoggedIn && !hasCompleted) ? <Domains /> : <Navigate to="/" />,
   },
   {
     path: '/submit',
-    element: (isLoggedIn && !hasCompleted) ? <Submit /> : <Navigate to="/error" />,
+    element: (isLoggedIn && !hasCompleted) ? <Submit /> : <Navigate to="/" />,
   },
   {
     path: '/finish',
-    element: (isLoggedIn && !hasCompleted) ? <Finish /> : <Navigate to="/error" />,
+    element: (isLoggedIn && !hasCompleted) ? <Finish /> : <Navigate to="/" />,
   },
   {
     path: '/error',

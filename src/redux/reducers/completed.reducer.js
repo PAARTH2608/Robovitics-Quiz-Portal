@@ -4,6 +4,7 @@ const initialState = {
   loading: false,
   msg: '',
   err: '',
+  complete: false,
 };
 
 const CompletedReducer = (state = initialState, action) => {
@@ -11,7 +12,8 @@ const CompletedReducer = (state = initialState, action) => {
     case AuthTypes.COMPLETED_SUCCESS:
       return {
         msg: action.data.msg,
-        error: '',
+        err: '',
+        complete: true,
       }
     case AuthTypes.COMPLETED_ERROR:
       return {
@@ -22,8 +24,9 @@ const CompletedReducer = (state = initialState, action) => {
       return {
         ...state,
         email: '',
-        showLanding: false,
-        isLoggedIn: false
+        msg: "",
+        isLoggedIn: false,
+        complete: false,
       };
     default:
       return state;

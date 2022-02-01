@@ -89,9 +89,8 @@ const Finish = () => {
         <ImgDiv>
           <Img src={Robo} alt="robo" />
         </ImgDiv>
-        <TextDiv>
-          <Tx2>TIME UP!!!</Tx2>
-          <Tx2>YOU HAVE SUCCESSFULLY SUBMITTED</Tx2>
+        <TextDiv> 
+          <Tx2>Thank you for the response!!</Tx2>
           <Tx4>RESULTS WILL BE OUT SOON</Tx4>
           <Tx5 pad1={"2%"} pad2={"4%"} pad1S={"3%"} pad2S={"7%"}>
             <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>

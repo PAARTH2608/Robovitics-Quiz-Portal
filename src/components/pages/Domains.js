@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MainDiv, Tx5 } from "./Start";
 import { RulesDiv } from "./Rules";
@@ -11,7 +11,8 @@ import Logical from "../subdomains/Logical";
 import Mechanical from "../subdomains/Mech";
 import CSE from "../subdomains/CSE";
 import Electrical from "../subdomains/Electrical";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { questionFetch } from "../../redux/actions/que.actions";
 
 const P = styled.p`
   color: ${(props) => (props.active ? "white" : "grey")};
@@ -56,15 +57,18 @@ const RefreshDiv = styled.div`
   transform: rotate(0deg);
   overflow: hidden;
   transition: all 0.6s ease-out;
-  ${({ rotate }) => rotate && `transform: rotate(360deg)`};
+  ${(props) => props.rot ? "transform: rotate(360deg)": "transform: rotate(0deg)"}
 `;
 
 const Domains = () => {
-  const [rotate, setRotate] = useState(false);
-  const handleClick = () => setRotate((prevState) => !prevState);
-
+  const [rot, setRot] = useState(false);
+  const handleClick = () => setRot((prevState) => !prevState);
+  
+  const id = useSelector((state) => state.auth.id);
+  const dispatch = useDispatch();
   const refreshPage = () => {
-    window.location.reload(false);
+    dispatch(questionFetch({ id: id }));
+    // window.location.reload(false);
   };
 
   const [clickOne, setClickOne] = useState(true);
@@ -109,10 +113,10 @@ const Domains = () => {
     setClickFive(true);
   };
 
-  const questionFetch = useSelector((state) => state.question);
+  const questionFet = useSelector((state) => state.question);
 
-  const testEndAt = useSelector(state => state.auth.testEndAt);
-  const date = new Date(testEndAt);
+  const TEA = useSelector((state) => state.auth.testEndAt);
+  const date = new Date(TEA);
   
 
   return (
@@ -135,18 +139,18 @@ const Domains = () => {
         </P>
       </DomainNames>
       <RulesDiv>
-        {clickOne && <Management packet={questionFetch.SET.MGM}/>}
-        {clickTwo && <Logical packet={questionFetch.SET.LOG}/>}
-        {clickThree && <Mechanical packet={questionFetch.SET.MEC}/>}
-        {clickFour && <CSE packet={questionFetch.SET.CSE}/>}
-        {clickFive && <Electrical packet={questionFetch.SET.ELE}/>}
+        {clickOne && <Management packet={questionFet.SET.MGM}/>}
+        {clickTwo && <Logical packet={questionFet.SET.LOG}/>}
+        {clickThree && <Mechanical packet={questionFet.SET.MEC}/>}
+        {clickFour && <CSE packet={questionFet.SET.CSE}/>}
+        {clickFive && <Electrical packet={questionFet.SET.ELE}/>}
       </RulesDiv>
       <Tx5 pad1={"1%"} pad2={"2%"} pad1S={"3%"} pad2S={"6%"} >
         <Link to={"/submit"} style={{ textDecoration: "none", color: "black" }}>
           UPLOAD QUIZ
         </Link>
       </Tx5>
-      <RefreshDiv rotate={rotate} onClick={handleClick}>
+      <RefreshDiv rot={rot} onClick={handleClick}>
         <BiRefresh
           style={{ color: "white", fontSize: "3rem" }}
           onClick={refreshPage}

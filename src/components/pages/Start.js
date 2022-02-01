@@ -81,7 +81,7 @@ const Tx3 = styled.h2`
   font-size: 2rem;
   font-family: "Roboto", sans-serif;
   padding-bottom: 2vh;
-  padding-top:3vh;
+  padding-top: 3vh;
 
   @media (max-width: 900px) {
     color: white;
@@ -135,6 +135,7 @@ export const Tx5 = styled.button`
 const Tx6 = styled.h2`
   color: white;
   font-family: "Roboto", sans-serif;
+  padding-top: 2vh;
 `;
 export const ColDiv = styled.div`
   display: flex;
@@ -197,11 +198,11 @@ const Start = () => {
   const [email, setEmail] = useState("");
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  // const hasCompleted = useSelector((state) => state.auth.hasCompleted);
   const random = useSelector((state) => state.upload.random);
-  // console.log("comp ",hasCompleted)
   const slot = useSelector((state) => state.auth.slot.timing);
   const isActive = useSelector((state) => state.auth.slot.isActive);
+  const complete = useSelector((state) => state.completed.complete);
+  // console.log("yo",complete)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -216,6 +217,7 @@ const Start = () => {
 
     dispatch(login({ email: userEmail }));
   };
+
   const date = new Date(slot);
   const curr = new Date();
   const diff = date.getTime() - curr.getTime();
@@ -229,34 +231,27 @@ const Start = () => {
     if (!isUserIdValid) {
       return;
     }
-
     dispatch(login({ email: res.profileObj.email }));
   };
-  const onLoginFailure = (res) => {
-    if (!isLoggedIn) {
-      navigate("/submit");
-    }
-  };
+
+  const onLoginFailure = (res) => {};
 
   const [timeLeft, setTimeLeft] = useState(diff);
 
   useEffect(() => {
-    // if (diff <= 0) navigate("/");
     const intervalId = setInterval(() => {
       setTimeLeft(diff);
     }, 1000);
     return () => clearInterval(intervalId);
   }, [diff, navigate]);
-  // console.log("time", timeLeft);
-  // console.log('diff ',diff)
 
   const Styles = {
     padding: "4%",
     fontSize: "1.5rem",
     color: "transparent",
     border: "1px solid white",
-  }
-  console.log(isLoggedIn, isActive)
+  };
+  console.log(isLoggedIn, isActive);
 
   return (
     <MainDiv>
@@ -275,6 +270,8 @@ const Start = () => {
           </ColDiv>
           <Tx3>CORE COMMITTEE SELECTIONS 2022</Tx3>
           <Tx4>ROUND 1</Tx4>
+
+          {/* if not logged in */}
           {!isLoggedIn && (
             <GoogleLogin
               clientId={clientId}
@@ -287,8 +284,9 @@ const Start = () => {
               style={Styles}
             />
           )}
-          {/* !uploaded to be used */}
-          {isLoggedIn && isActive && !random && parseInt(diff) <= 0 && (
+
+          {/* user logged in and is active but has not uploaded the file and thus has not completed the test and is within test hours */}
+          {isLoggedIn && isActive && (!random || !complete) && parseInt(diff) <= 0 && (
             <Tx5 pad1={"2%"} pad2={"4%"} pd1={"5%"} pd2={"8%"}>
               <Link
                 to={"/rules"}
@@ -299,9 +297,17 @@ const Start = () => {
               </Link>
             </Tx5>
           )}
+
+          {/* user logged in and is active and has uploaded and completed the test */}
           {isLoggedIn && isActive && random && (
             <Tx6>You have successfully submitted!</Tx6>
           )}
+
+          {isLoggedIn && isActive && complete && (
+            <Tx6>Time's Up!!</Tx6>
+          )}
+
+          {/* user logged in & is active but has not uploaded the doc and has arrived before the test */}
           {isLoggedIn && isActive && !random && parseInt(diff) > 0 && (
             <BoxTwo>
               <Tx6>Your test starts in </Tx6>

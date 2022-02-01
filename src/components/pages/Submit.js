@@ -149,7 +149,7 @@ const Submit = () => {
       <Help1>
         <ImgDiv src={ImgLogo} onClick={() => fileInputRef.current.click()} />
         <Tx6>FILE UPLOAD</Tx6>
-        {isLarge && <Tx7>*File size &gt; 5mb</Tx7>}
+        {isLarge && <Tx7>*File size should be &lt; 5mb</Tx7>}
       </Help1>
       <Tx4>ARE YOU SURE YOU WANT TO SUBMIT QUIZ ?</Tx4>
       <HelperDiv>

@@ -74,7 +74,8 @@ const RefreshDiv = styled.div`
   transform: rotate(0deg);
   overflow: hidden;
   transition: all 0.6s ease-out;
-  ${({ rotate }) => rotate && `transform: rotate(360deg)`};
+  ${(props) => props.rot ? "transform: rotate(360deg)": "transform: rotate(0deg)"}
+  transform: rotate(360deg);
 
   @media (max-width: 600px) {
     display:block;
@@ -83,6 +84,7 @@ const RefreshDiv = styled.div`
 const Rules = () => {
   const id = useSelector((state) => state.auth.id);
   const dispatch = useDispatch();
+  
   useEffect(() => {
     dispatch(questionFetch({ id: id }));
   }, [id, dispatch]);
@@ -90,8 +92,8 @@ const Rules = () => {
   const TEA = useSelector((state) => state.question.TEA);
   const date = new Date(TEA);
 
-  const [rotate, setRotate] = useState(false);
-  const handleClick = () => setRotate((prevState) => !prevState);
+  const [rot, setRot] = useState(false);
+  const handleClick = () => setRot((prevState) => !prevState);
   const refreshPage = () => {
     window.location.reload(false);
   };
@@ -120,7 +122,7 @@ const Rules = () => {
       <SocialDiv disp={"none"}>
         <Socials />
       </SocialDiv>
-      <RefreshDiv rotate={rotate} onClick={handleClick}>
+      <RefreshDiv rot={rot} onClick={handleClick}>
         <BiRefresh
           style={{ color: "white", fontSize: "3rem" }}
           onClick={refreshPage}
