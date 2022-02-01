@@ -106,30 +106,45 @@ const Submit = () => {
   const dispatch = useDispatch();
 
   const [isLarge, setIsLarge] = useState(false);
-
+  const [modal, setModal] = useState(false);
+  
   const fileUploadHandler = (e) => {
     e.preventDefault();
     // const formData = new FormData();
     if (e.target.files[0]) {
       // formData.append("file", e.target.files[0]);
       const file = e.target.files[0];
-      setFile(file);
-      if (file.size > 5000000) {
-        setIsLarge(true);
-        return;
-      } else {
-        setIsLarge(false);
+      console.log(file.name.split(".")[1]);
+      if (file.name.split(".")[1] === "pdf") {
+        setModal(false);
+        setFile(file);
+        if (file.size > 5000000) {
+          setIsLarge(true);
+          return;
+        } else {
+          setIsLarge(false);
+        }
+      }
+      else{
+        setModal(true);
       }
     }
   };
   const submitHandler = () => {
-    if (File.size > 5000000) {
-      setIsLarge(true);
-      return;
-    } else {
-      setIsLarge(false);
+    if(File.name.split(".")[1] === "pdf"){
+      setModal(false);
+      if (File.size > 5000000) {
+        setIsLarge(true);
+        return;
+      } else {
+  
+        setIsLarge(false);
+      }
+      dispatch(uploadDoc({ File, id }));
     }
-    dispatch(uploadDoc({ File, id }));
+    else{
+      setModal(true);
+    }
     // dispatch(completed({id}));
   };
 
@@ -150,6 +165,7 @@ const Submit = () => {
         <ImgDiv src={ImgLogo} onClick={() => fileInputRef.current.click()} />
         <Tx6>FILE UPLOAD</Tx6>
         {isLarge && <Tx7>*File size should be &lt; 5mb</Tx7>}
+        {modal && <Tx7>*Only PDF files are allowed</Tx7>}
       </Help1>
       <Tx4>ARE YOU SURE YOU WANT TO SUBMIT QUIZ ?</Tx4>
       <HelperDiv>
