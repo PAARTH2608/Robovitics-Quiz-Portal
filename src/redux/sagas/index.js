@@ -6,6 +6,7 @@ import {all, fork} from 'redux-saga/effects';
 import authSaga from './auth.saga';
 import queSaga from './que.saga';
 import uploadSaga from './upload.saga';
+import completedSaga from './completed.saga';
 // Connect types to sagas
 const rootSaga = function* root() {
   yield all([
@@ -13,6 +14,7 @@ const rootSaga = function* root() {
     fork(authSaga),
     fork(queSaga),
     fork(uploadSaga),
+    fork(completedSaga),
   ]);
 };
 

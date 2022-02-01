@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { questionFetch } from "../../redux/actions/que.actions";
 import styled from "styled-components";
@@ -8,7 +8,7 @@ import Counter from "../utils/Counter";
 import Logo from "../../assets/RoboVITics-Logo.svg";
 import Line from "../../assets/line.svg";
 import Dot from "../../assets/dot.svg";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const TextDiv = styled.h1`
   color: #5be4ff;

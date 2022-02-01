@@ -7,6 +7,7 @@ import ImgLogo from "../../assets/Group.svg";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadDoc } from "../../redux/actions/upload.action";
+import { completed } from "../../redux/actions/completed.action";
 
 const Tx1 = styled.h1`
   color: white;
@@ -49,6 +50,7 @@ font-size:1rem;
 `;
 const Submit = () => {
   const fileInputRef = useRef();
+  const [File, setFile] = useState(null);
   const id = useSelector((state) => state.auth.id);
   const dispatch = useDispatch();
 
@@ -60,7 +62,7 @@ const Submit = () => {
     if(e.target.files[0]){
       // formData.append("file", e.target.files[0]);
       const file = e.target.files[0];
-      console.log(file.size);
+      setFile(file);
       if(file.size > 5000000){
         setIsLarge(true);
         return;
@@ -68,8 +70,19 @@ const Submit = () => {
       else{
         setIsLarge(false);
       }
-      dispatch(uploadDoc({file, id}));
+      
     }
+  }
+  const submitHandler = () => {
+    if(File.size > 5000000){
+      setIsLarge(true);
+      return;
+    }
+    else{
+      setIsLarge(false);
+    }
+    dispatch(uploadDoc({File, id}));
+    dispatch(completed({id}));
   }
 
   return (
@@ -95,7 +108,7 @@ const Submit = () => {
         <Tx5 pad1={"1%"} pad2={"3%"}>
           <Link to={'/domains'} style={{ textDecoration: 'none', color: 'black' }}>GO BACK</Link>
         </Tx5>
-        <Tx5 pad1={"1%"} pad2={"3%"}>
+        <Tx5 pad1={"1%"} pad2={"3%"} onClick={submitHandler}>
           <Link to={'/finish'} style={{ textDecoration: 'none', color: 'black' }} >SUBMIT QUIZ</Link>
         </Tx5>
       </HelperDiv>

@@ -4,7 +4,7 @@ import { BASE_API_URL } from "./constants";
 class UploadService {
   async uploadDoc(cred) {
     const formData = new FormData();
-    formData.append("Paper", cred.file);
+    formData.append("Paper", cred.File);
     formData.append("id", cred.id);
     console.log("from service ", formData.get("Paper"));
     try {
