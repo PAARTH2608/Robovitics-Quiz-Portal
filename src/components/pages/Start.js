@@ -197,6 +197,7 @@ const Start = () => {
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const hasCompleted = useSelector((state) => state.auth.hasCompleted);
+  console.log("comp ",hasCompleted)
   const slot = useSelector((state) => state.auth.slot.timing);
   const isActive = useSelector((state) => state.auth.slot.isActive);
 
@@ -247,6 +248,13 @@ const Start = () => {
   // console.log("time", timeLeft);
   // console.log('diff ',diff)
 
+  const Styles = {
+    padding: "4%",
+    fontSize: "1.5rem",
+    color: "transparent",
+    border: "1px solid white",
+  }
+
   return (
     <MainDiv>
       <CDiv>
@@ -272,6 +280,8 @@ const Start = () => {
               onFailure={onLoginFailure}
               cookiePolicy={"single_host_origin"}
               isSignedIn={true}
+              theme="dark"
+              style={Styles}
             />
           )}
           {/* !uploaded to be used */}
