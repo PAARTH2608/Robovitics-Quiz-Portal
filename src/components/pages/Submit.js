@@ -13,14 +13,17 @@ import { uploadDoc } from "../../redux/actions/upload.action";
 const Tx1 = styled.h1`
   color: white;
   font-size: 3rem;
+  font-family: "Roboto", sans-serif;
 `;
 const Tx2 = styled.h2`
   color: #5be4ff;
   font-size: 2rem;
+  font-family: "Roboto", sans-serif;
 `;
 const Tx3 = styled.input``;
 const Tx4 = styled.h2`
   color: white;
+  font-family: "Roboto", sans-serif;
 `;
 const HelperDiv = styled.div`
   display: flex;
@@ -44,10 +47,12 @@ flex-direction:column;
 const Tx6 = styled.h2`
   color: #5be4ff;
   padding-top: 4vh;
+  font-family: "Roboto", sans-serif;
 `;
 const Tx7 = styled.h2`
 color:white;
 font-size:1rem;
+font-family: "Roboto", sans-serif;
 `;
 const Submit = () => {
   const fileInputRef = useRef();

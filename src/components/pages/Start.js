@@ -52,22 +52,25 @@ const Tx1 = styled.img`
 `;
 export const Tx2 = styled.h2`
   color: white;
-  font-family: montserrat;
+  font-family: "Roboto", sans-serif;
   font-size: 1.5rem;
 `;
 const Tx3 = styled.h2`
   color: #5be4ff;
   font-size: 2rem;
+  font-family: "Roboto", sans-serif;
 `;
 export const Tx4 = styled.h1`
   color: #5be4ff;
   font-size: 4rem;
+  font-family: "Roboto", sans-serif;
 `;
 export const Tx5 = styled.button`
   padding: ${(props) => props.pad1} ${(props) => props.pad2};
   font-size: 1.3rem;
   border-radius: 5px;
   border: none;
+  font-family: "Roboto", sans-serif;
   background: rgb(98, 84, 255);
   background: linear-gradient(
     99deg,

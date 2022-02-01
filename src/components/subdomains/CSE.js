@@ -6,6 +6,7 @@ export const Para = styled.p`
   font-size: 1.3rem;
   color: white;
   padding-bottom: 5vh;
+  font-family: "Roboto", sans-serif;
 `;
 
 const CSE = props => {

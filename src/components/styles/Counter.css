@@ -8,6 +8,10 @@
 .two-numbers{
     color: white;
     font-size: 2rem;
+    font-family: "Roboto", sans-serif;
+}
+.tags{
+    font-family: "Roboto", sans-serif;
 }
 @media screen and (max-width: 1100px){
     .countdown-timer{

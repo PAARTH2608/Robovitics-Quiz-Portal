@@ -1,18 +1,20 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { questionFetch } from "../../redux/actions/que.actions";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import rules from "../utils/RulesHelper";
+import { questionFetch } from "../../redux/actions/que.actions";
 import Socials from "../utils/Socials";
 import { MainDiv, Tx5, SocialDiv, LineDiv, DotDiv } from "./Start";
 import Counter from "../utils/Counter";
 import Logo from "../../assets/RoboVITics-Logo.svg";
 import Line from "../../assets/line.svg";
 import Dot from "../../assets/dot.svg";
-import { Link } from "react-router-dom";
 
 const TextDiv = styled.h1`
   color: #5be4ff;
   font-size: 3rem;
+  font-family: "Roboto", sans-serif;
 `;
 export const RulesDiv = styled.div`
   height: 60vh;
@@ -29,6 +31,7 @@ export const Para = styled.p`
   color: white;
   font-size: 1.3rem;
   padding-bottom: 20px;
+  font-family: "Roboto", sans-serif;
 `;
 export const LogoDiv = styled.div`
   position: absolute;
@@ -60,7 +63,10 @@ const Rules = () => {
     <MainDiv col={"column"}>
       <TextDiv>RULES</TextDiv>
       <RulesDiv>
-        <Para>
+        {rules.map(rule => (
+          <Para>{rule}</Para>
+        ))}
+        {/* <Para>
           1. Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and
@@ -119,13 +125,7 @@ const Rules = () => {
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and
           scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
+        </Para> */}
       </RulesDiv>
       <Tx5 pad1={"2%"} pad2={"4%"}>
         <Link
@@ -140,7 +140,6 @@ const Rules = () => {
       </LogoDiv>
       <BoxTwo>
         <Counter countdownTimestampMs={date.getTime()} />
-        {/* <CountDownDashboard hoursMinSecs={msToTime(diff)}/> */}
       </BoxTwo>
       <SocialDiv>
         <Socials />

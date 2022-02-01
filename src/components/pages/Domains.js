@@ -19,6 +19,7 @@ const P = styled.p`
   height: 100%;
   cursor: pointer;
   border-bottom: ${(props) => props.active && "3px solid #5be4ff"};
+  font-family: "Roboto", sans-serif;
 
   &:hover {
     color: white;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link  } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MainDiv, ImgDiv, Img } from "./Start";
 import { LogoDiv } from "./Rules";
 import { Tx5 } from "./Start";
