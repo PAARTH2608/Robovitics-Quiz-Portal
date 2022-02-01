@@ -114,7 +114,7 @@ const Submit = () => {
     if (e.target.files[0]) {
       // formData.append("file", e.target.files[0]);
       const file = e.target.files[0];
-      console.log(file.name.split(".")[1]);
+      
       if (file.name.split(".")[1] === "pdf") {
         setModal(false);
         setFile(file);
@@ -152,7 +152,7 @@ const Submit = () => {
     <MainDiv col={"column"}>
       <Help>
         <Tx1>CORE COMMITTEE SELECTIONS</Tx1>
-        <Tx2>RECRUITMENTS ROUNT 1</Tx2>
+        <Tx2>RECRUITMENTS ROUND 1</Tx2>
       </Help>
       <Tx3
         onChange={fileUploadHandler}

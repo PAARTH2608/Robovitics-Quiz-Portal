@@ -286,7 +286,7 @@ const Start = () => {
           )}
 
           {/* user logged in and is active but has not uploaded the file and thus has not completed the test and is within test hours */}
-          {isLoggedIn && isActive && (!random || !complete) && parseInt(diff) <= 0 && (
+          {isLoggedIn && isActive && (!random) && parseInt(diff) <= 0 && (
             <Tx5 pad1={"2%"} pad2={"4%"} pd1={"5%"} pd2={"8%"}>
               <Link
                 to={"/rules"}
