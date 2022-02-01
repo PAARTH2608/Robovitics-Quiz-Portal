@@ -55,38 +55,6 @@ const Rules = () => {
 
   const testEndAt = useSelector(state => state.auth.testEndAt);
   const date = new Date(testEndAt);
-  // const TEA = useSelector((state) => state.question.TEA);
-  // const CET = useSelector((state) => state.question.CET);
-  // // console.log("timings ",TEA, CET);
-  // const date1 = new Date(TEA).getTime();
-  // const date2 = new Date(CET).getTime();
-  // const diff = date1 - date2;
-  // console.log("diff ", diff);
-  // const [hrs, setHrs] = useState(0)
-  // const [min, setMin] = useState(0)
-  // const [sec, setSec] = useState(0)
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     msToTime(diff);
-  //   }, 1000);
-  // }, [diff,sec]);
-
-  // function msToTime(duration) {
-  //   var milliseconds = parseInt((duration % 1000) / 100),
-  //     seconds = Math.floor((duration / 1000) % 60),
-  //     minutes = Math.floor((duration / (1000 * 60)) % 60),
-  //     hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-
-  //   hours = hours < 10 ? "0" + hours : hours;
-  //   minutes = minutes < 10 ? "0" + minutes : minutes;
-  //   seconds = seconds < 10 ? "0" + seconds : seconds;
-
-  //   setHrs(hours);
-  //   setMin(minutes);
-  //   setSec(seconds);
-  // }
-  // console.log("sec ",sec)
   
   return (
     <MainDiv col={"column"}>

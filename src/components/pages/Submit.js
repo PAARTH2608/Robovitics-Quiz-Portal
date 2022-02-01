@@ -7,7 +7,8 @@ import ImgLogo from "../../assets/Group.svg";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadDoc } from "../../redux/actions/upload.action";
-import { completed } from "../../redux/actions/completed.action";
+// import { completed } from "../../redux/actions/completed.action";
+//no need for complete test its automatically updated in the backend
 
 const Tx1 = styled.h1`
   color: white;
@@ -82,7 +83,7 @@ const Submit = () => {
       setIsLarge(false);
     }
     dispatch(uploadDoc({File, id}));
-    dispatch(completed({id}));
+    // dispatch(completed({id}));
   }
 
   return (
@@ -108,9 +109,9 @@ const Submit = () => {
         <Tx5 pad1={"1%"} pad2={"3%"}>
           <Link to={'/domains'} style={{ textDecoration: 'none', color: 'black' }}>GO BACK</Link>
         </Tx5>
-        <Tx5 pad1={"1%"} pad2={"3%"} onClick={submitHandler}>
-          <Link to={'/finish'} style={{ textDecoration: 'none', color: 'black' }} >SUBMIT QUIZ</Link>
-        </Tx5>
+        {File && !isLarge && <Tx5 pad1={"1%"} pad2={"3%"} onClick={submitHandler} >
+          <Link to={"/finish"} style={{ textDecoration: 'none', color: 'black' }} >SUBMIT QUIZ</Link>
+        </Tx5>}
       </HelperDiv>
       <LogoDiv src={Logo} alt="logo">
         <Img src={Logo} alt="logo" />

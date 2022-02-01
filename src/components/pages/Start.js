@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Socials from "../utils/Socials";
@@ -106,21 +106,7 @@ export const DotDiv = styled.img`
   bottom: 3%;
   left: 28px;
 `;
-const Input = styled.input`
-  padding: 0.5%;
-  margin: 0.5%;
-  background: transparent;
-  border-radius: 20px;
-  border: 1px solid transparent;
-  border-bottom: 2px solid rgb(228, 127, 171);
-  font-size: 1rem;
-  outline: none;
-  text-align: center;
 
-  &:focus {
-    transform: scale(1.1);
-  }
-`;
 export const BoxTwo = styled.div`
   bottom: 100px;
   display: flex;
@@ -134,8 +120,7 @@ const Start = () => {
   const [email, setEmail] = useState("");
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const isUploaded = useSelector((state) => state.auth.hasUploaded);
-  // dont use isUploaded
+  const hasCompleted = useSelector((state) => state.auth.hasCompleted);
   const slot = useSelector((state) => state.auth.slot.timing);
   const isActive = useSelector((state) => state.auth.slot.isActive);
 
@@ -153,6 +138,9 @@ const Start = () => {
     dispatch(login({ email: userEmail }));
   };
   const date = new Date(slot);
+  const curr = new Date();
+  const diff = date.getTime() - curr.getTime();
+  // console.log("diff ",diff)
 
   const clientId =
     "779374762899-3cnshb5pms6ks39et3ns7dj2e2v5nflo.apps.googleusercontent.com";
@@ -170,8 +158,19 @@ const Start = () => {
     if(!isLoggedIn) {
       navigate("/submit");
     }
-    // console.log(res);
   };
+
+  const [timeLeft, setTimeLeft] = useState(diff);
+
+  useEffect(() => {
+    // if (diff <= 0) navigate("/");
+    const intervalId = setInterval(() => {
+      setTimeLeft(diff);
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, [diff,navigate]);
+  // console.log('time',timeLeft)
+  // console.log('diff ',diff)
 
   return (
     <MainDiv>
@@ -195,23 +194,8 @@ const Start = () => {
               isSignedIn={true}
             />
         )}
-        {/* <Tx5 pad1={"2%"} pad2={"4%"}>
-          <Link
-            to={"/"}
-            style={{ textDecoration: "none", color: "black" }}
-            onClick={toggleHandler}
-          >
-            LOGIN
-          </Link>
-          <Input
-            placeholder="Enter your vit-email"
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Tx5> */}
         {/* !uploaded to be used */}
-        {isLoggedIn && isActive && !isUploaded && parseInt(date.getTime()) < 0 && (
+        {isLoggedIn && isActive && !hasCompleted && parseInt(diff) <= 0 && (
           <Tx5 pad1={"2%"} pad2={"4%"}>
             <Link
               to={"/rules"}
@@ -222,10 +206,10 @@ const Start = () => {
             </Link>
           </Tx5>
         )}
-        {isLoggedIn && isActive && isUploaded && (
+        {isLoggedIn && isActive && hasCompleted && (
           <Tx6>You have successfully submitted!</Tx6>
         )}
-        {isLoggedIn && isActive && !isUploaded && parseInt(date.getTime()) >= 0 && (
+        {isLoggedIn && isActive && !hasCompleted && parseInt(diff) > 0 && (
           <BoxTwo>
             <Tx6>Your test starts in </Tx6>
             <StartPageCounter countdownTimestampMs={date.getTime()} />
@@ -242,19 +226,3 @@ const Start = () => {
 };
 
 export default Start;
-
-{
-  /* <Link
-              to={"/"}
-              style={{ textDecoration: "none", color: "black" }}
-              onClick={toggleHandler}
-            >
-              LOGIN
-            </Link>
-            <Input
-              placeholder="Enter your vit-email"
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            /> */
-}

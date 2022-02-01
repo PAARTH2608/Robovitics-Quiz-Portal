@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router-dom";
 import "../styles/Counter.css";
 import { getRemainingTimeUntilMsTimestamp } from "./CounterHelper.js";
+import { completed } from "../../redux/actions/completed.action";
 
 const defaultRemainingTime = {
-  seconds: "00",
+  seconds: "01",
   minutes: "00",
   hours: "00",
   days: "00",
@@ -12,23 +14,23 @@ const defaultRemainingTime = {
 
 const Counter = ({ countdownTimestampMs }) => {
   const [remainingTime, setRemainingTime] = useState(defaultRemainingTime);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const id = useSelector((state) => state.auth.id);
 
   useEffect(() => {
+    remainingTime.seconds === "00" && remainingTime.minutes === "00" && remainingTime.hours === "00" && remainingTime.days === "00" && dispatch(completed({id})) && navigate("/") ;
     const intervalId = setInterval(() => {
       updateRemainingTime(countdownTimestampMs);
     }, 1000);
     return () => clearInterval(intervalId);
-  }, [countdownTimestampMs]);
+  }, [countdownTimestampMs,remainingTime,navigate,dispatch,id]);
 
   function updateRemainingTime(countdown) {
     setRemainingTime(getRemainingTimeUntilMsTimestamp(countdown));
   }
-  // const timeStart = new Date().getTime();
-  // const timeDiff = countdownTimestampMs - timeStart;
-  // console.log("current time",timeStart)
-  // console.log("from counter",timeDiff);
 
+  // console.log("from counter ",remainingTime)
 
 //   useEffect(() => {
 //   if(timeDiff <= 0){
