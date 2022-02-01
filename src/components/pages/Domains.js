@@ -25,6 +25,11 @@ const P = styled.p`
     color: white;
     border-bottom: 3px solid #5be4ff;
   }
+
+  @media (max-width: 600px) {
+    font-size: 1.2rem;
+    padding: 0.6rem;
+  }
 `;
 const DomainNames = styled.div`
   display: flex;
@@ -32,6 +37,13 @@ const DomainNames = styled.div`
   justify-content: space-between;
   width: 80%;
   padding-top: 10vh;
+
+  @media (max-width: 768px) {
+    overflow: scroll;
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `;
 const RefreshDiv = styled.div`
   position: absolute;
@@ -129,7 +141,7 @@ const Domains = () => {
         {clickFour && <CSE packet={questionFetch.SET.CSE}/>}
         {clickFive && <Electrical packet={questionFetch.SET.ELE}/>}
       </RulesDiv>
-      <Tx5 pad1={"1%"} pad2={"2%"}>
+      <Tx5 pad1={"1%"} pad2={"2%"} pad1S={"3%"} pad2S={"6%"} >
         <Link to={"/submit"} style={{ textDecoration: "none", color: "black" }}>
           UPLOAD QUIZ
         </Link>

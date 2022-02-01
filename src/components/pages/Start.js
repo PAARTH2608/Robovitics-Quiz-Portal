@@ -10,6 +10,7 @@ import Logo from "../../assets/RoboVITics-Logo.svg";
 import Line from "../../assets/line.svg";
 import Dot from "../../assets/dot.svg";
 import { GoogleLogin } from "react-google-login";
+import { CDiv } from "./Finish";
 
 export const MainDiv = styled.div`
   height: 100vh;
@@ -33,6 +34,13 @@ export const ImgDiv = styled.div`
   justify-content: center;
   width: 50%;
   height: 90%;
+
+  @media (max-width: 900px) {
+    padding-bottom: 4rem;
+    padding-top: 2rem;
+    width: 65%;
+    height: 65%;
+  }
 `;
 export const Img = styled.img`
   height: 100%;
@@ -43,27 +51,60 @@ export const TextDiv = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  text-align: center;
   width: 40%;
   height: 80%;
+
+  @media (max-width: 900px) {
+    width: 80%;
+  }
 `;
 const Tx1 = styled.img`
   width: 90%;
   height: 100%;
+
+  @media (max-width: 550px) {
+    width: 80%;
+  }
 `;
 export const Tx2 = styled.h2`
   color: white;
   font-family: "Roboto", sans-serif;
   font-size: 1.5rem;
+
+  @media (max-width: 550px) {
+    font-size: 1rem;
+  }
 `;
 const Tx3 = styled.h2`
   color: #5be4ff;
   font-size: 2rem;
   font-family: "Roboto", sans-serif;
+  padding-bottom: 5vh;
+
+  @media (max-width: 900px) {
+    color: white;
+    padding-bottom: 2vh;
+  }
+
+  @media (max-width: 550px) {
+    font-size: 1.5rem;
+  }
 `;
 export const Tx4 = styled.h1`
   color: #5be4ff;
   font-size: 4rem;
   font-family: "Roboto", sans-serif;
+  padding-bottom: 5vh;
+
+  @media (max-width: 900px) {
+    padding-bottom: 2vh;
+    font-size: 3rem;
+  }
+
+  @media (max-width: 550px) {
+    font-size: 2rem;
+  }
 `;
 export const Tx5 = styled.button`
   padding: ${(props) => props.pad1} ${(props) => props.pad2};
@@ -81,9 +122,18 @@ export const Tx5 = styled.button`
 
   &:hover {
   }
+
+  @media (max-width: 900px) {
+    padding: ${(props) => props.pad1S} ${(props) => props.pad2S};
+  }
+
+  @media (max-width: 550px) {
+    padding: ${(props) => props.pd1} ${(props) => props.pd2};
+  }
 `;
 const Tx6 = styled.h2`
   color: white;
+  font-family: "Roboto", sans-serif;
 `;
 export const ColDiv = styled.div`
   display: flex;
@@ -92,21 +142,37 @@ export const ColDiv = styled.div`
   justify-content: space-between;
   height: 22vh;
   width: 100%;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 export const SocialDiv = styled.div`
   position: absolute;
   left: 20px;
   bottom: 25%;
+
+  @media (max-width: 550px) {
+    display: ${(props) => props.disp};
+  }
 `;
 export const LineDiv = styled.img`
   position: absolute;
   bottom: 7%;
   left: 30px;
+
+  @media (max-width: 550px) {
+    display: ${(props) => props.disp};
+  }
 `;
 export const DotDiv = styled.img`
   position: absolute;
   bottom: 3%;
   left: 28px;
+
+  @media (max-width: 550px) {
+    display: ${(props) => props.disp};
+  }
 `;
 
 export const BoxTwo = styled.div`
@@ -116,7 +182,15 @@ export const BoxTwo = styled.div`
   align-items: center;
   justify-content: space-around;
 `;
-
+const ColDivS = styled.div`
+  display: none;
+  @media (max-width: 900px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+`;
 const Start = () => {
   // const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
@@ -170,53 +244,59 @@ const Start = () => {
     }, 1000);
     return () => clearInterval(intervalId);
   }, [diff, navigate]);
-  console.log('time',timeLeft)
+  // console.log("time", timeLeft);
   // console.log('diff ',diff)
 
   return (
     <MainDiv>
-      <ImgDiv>
-        <Img src={Robo} alt="robo" />
-      </ImgDiv>
-      <TextDiv>
-        <ColDiv>
+      <CDiv>
+        <ColDivS>
           <Tx1 src={Logo} alt="logo" />
           <Tx2>THE OFFICIAL ROBOTICS CLUB OF VIT</Tx2>
-        </ColDiv>
-        <Tx3>CORE COMMITTEE SELECTIONS 2022</Tx3>
-        <Tx4>ROUND 1</Tx4>
-        {!isLoggedIn && (
-          <GoogleLogin
-            clientId={clientId}
-            buttonText="Sign In"
-            onSuccess={onLoginSuccess}
-            onFailure={onLoginFailure}
-            cookiePolicy={"single_host_origin"}
-            isSignedIn={true}
-          />
-        )}
-        {/* !uploaded to be used */}
-        {isLoggedIn && isActive && !hasCompleted && parseInt(diff) <= 0 && (
-          <Tx5 pad1={"2%"} pad2={"4%"}>
-            <Link
-              to={"/rules"}
-              style={{ textDecoration: "none", color: "black" }}
-              onSubmit={toggleHandler}
-            >
-              START QUIZ
-            </Link>
-          </Tx5>
-        )}
-        {isLoggedIn && isActive && hasCompleted && (
-          <Tx6>You have successfully submitted!</Tx6>
-        )}
-        {isLoggedIn && isActive && !hasCompleted && parseInt(diff) > 0 && (
-          <BoxTwo>
-            <Tx6>Your test starts in </Tx6>
-            <StartPageCounter countdownTimestampMs={date.getTime()} />
-          </BoxTwo>
-        )}
-      </TextDiv>
+        </ColDivS>
+        <ImgDiv>
+          <Img src={Robo} alt="robo" />
+        </ImgDiv>
+        <TextDiv>
+          <ColDiv>
+            <Tx1 src={Logo} alt="logo" />
+            <Tx2>THE OFFICIAL ROBOTICS CLUB OF VIT</Tx2>
+          </ColDiv>
+          <Tx3>CORE COMMITTEE SELECTIONS 2022</Tx3>
+          <Tx4>ROUND 1</Tx4>
+          {!isLoggedIn && (
+            <GoogleLogin
+              clientId={clientId}
+              buttonText="Sign In"
+              onSuccess={onLoginSuccess}
+              onFailure={onLoginFailure}
+              cookiePolicy={"single_host_origin"}
+              isSignedIn={true}
+            />
+          )}
+          {/* !uploaded to be used */}
+          {isLoggedIn && isActive && !hasCompleted && parseInt(diff) <= 0 && (
+            <Tx5 pad1={"2%"} pad2={"4%"} pd1={"5%"} pd2={"8%"}>
+              <Link
+                to={"/rules"}
+                style={{ textDecoration: "none", color: "black" }}
+                onSubmit={toggleHandler}
+              >
+                START QUIZ
+              </Link>
+            </Tx5>
+          )}
+          {isLoggedIn && isActive && hasCompleted && (
+            <Tx6>You have successfully submitted!</Tx6>
+          )}
+          {isLoggedIn && isActive && !hasCompleted && parseInt(diff) > 0 && (
+            <BoxTwo>
+              <Tx6>Your test starts in </Tx6>
+              <StartPageCounter countdownTimestampMs={date.getTime()} />
+            </BoxTwo>
+          )}
+        </TextDiv>
+      </CDiv>
       <SocialDiv>
         <Socials />
       </SocialDiv>

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -10,11 +10,21 @@ import Counter from "../utils/Counter";
 import Logo from "../../assets/RoboVITics-Logo.svg";
 import Line from "../../assets/line.svg";
 import Dot from "../../assets/dot.svg";
+import { BiRefresh } from "react-icons/bi";
 
 const TextDiv = styled.h1`
   color: #5be4ff;
   font-size: 3rem;
   font-family: "Roboto", sans-serif;
+
+  @media (max-width: 900px) {
+    transform: translateY(55%);
+  }
+
+  @media (max-width: 550px) {
+    font-size: 2rem;
+    transform: translateY(100%);
+  }
 `;
 export const RulesDiv = styled.div`
   height: 60vh;
@@ -38,6 +48,10 @@ export const LogoDiv = styled.div`
   top: 0;
   left: 0;
   padding: 2%;
+
+  @media (max-width: 550px) {
+    display: ${(props) => props.disp};
+  }
 `;
 export const Img = styled.img`
   height: 10%;
@@ -48,6 +62,24 @@ export const BoxTwo = styled.div`
   position: absolute;
   top: 0;
 `;
+const RefreshDiv = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 2%;
+  cursor: pointer;
+  z-index:599;
+  display:none;
+
+  transform: rotate(0deg);
+  overflow: hidden;
+  transition: all 0.6s ease-out;
+  ${({ rotate }) => rotate && `transform: rotate(360deg)`};
+
+  @media (max-width: 600px) {
+    display:block;
+  }
+`;
 const Rules = () => {
   const id = useSelector((state) => state.auth.id);
   const dispatch = useDispatch();
@@ -55,79 +87,23 @@ const Rules = () => {
     dispatch(questionFetch({ id: id }));
   }, [id, dispatch]);
 
-
-  const testEndAt = useSelector(state => state.auth.testEndAt);
+  const testEndAt = useSelector((state) => state.auth.testEndAt);
   const date = new Date(testEndAt);
-  
+
+  const [rotate, setRotate] = useState(false);
+  const handleClick = () => setRotate((prevState) => !prevState);
+  const refreshPage = () => {
+    window.location.reload(false);
+  };
   return (
     <MainDiv col={"column"}>
       <TextDiv>RULES</TextDiv>
       <RulesDiv>
-        {rules.map(rule => (
+        {rules.map((rule) => (
           <Para>{rule}</Para>
         ))}
-        {/* <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para>
-        <Para>
-          1. Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </Para> */}
       </RulesDiv>
-      <Tx5 pad1={"2%"} pad2={"4%"}>
+      <Tx5 pad1={"2%"} pad2={"4%"} pad1S={"3%"} pad2S={"8%"}>
         <Link
           to={"/domains"}
           style={{ textDecoration: "none", color: "black" }}
@@ -135,17 +111,23 @@ const Rules = () => {
           START
         </Link>
       </Tx5>
-      <LogoDiv src={Logo} alt="logo">
+      <LogoDiv src={Logo} alt="logo" disp={"none"}>
         <Img src={Logo} alt="logo" />
       </LogoDiv>
       <BoxTwo>
         <Counter countdownTimestampMs={date.getTime()} />
       </BoxTwo>
-      <SocialDiv>
+      <SocialDiv disp={"none"}>
         <Socials />
       </SocialDiv>
-      <LineDiv src={Line} alt="line" />
-      <DotDiv src={Dot} alt="dot" />
+      <RefreshDiv rotate={rotate} onClick={handleClick}>
+        <BiRefresh
+          style={{ color: "white", fontSize: "3rem" }}
+          onClick={refreshPage}
+        />
+      </RefreshDiv>
+      <LineDiv src={Line} alt="line" disp={"none"}/>
+      <DotDiv src={Dot} alt="dot" disp={"none"}/>
     </MainDiv>
   );
 };
