@@ -115,7 +115,7 @@ const Domains = () => {
 
   const questionFet = useSelector((state) => state.question);
 
-  const TEA = useSelector((state) => state.auth.testEndAt);
+  const TEA = useSelector((state) => state.question.TEA);
   const date = new Date(TEA);
   
 
