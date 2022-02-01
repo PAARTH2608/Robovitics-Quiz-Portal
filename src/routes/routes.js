@@ -1,4 +1,4 @@
-import { Navigate,Outlet } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import Domains from '../components/pages/Domains';
 import Error from '../components/pages/Error';
 import Finish from '../components/pages/Finish';
@@ -13,19 +13,19 @@ const routes = (isLoggedIn, hasCompleted) => [
   },
   {
     path: '/rules',
-    element: !isLoggedIn ? <Rules /> : <Navigate to="/error" />,
+    element: isLoggedIn ? <Rules /> : <Navigate to="/error" />,
   },
   {
     path: '/domains',
-    element: !isLoggedIn ? <Domains /> : <Navigate to="/error" />,
+    element: isLoggedIn ? <Domains /> : <Navigate to="/error" />,
   },
   {
     path: '/submit',
-    element: !isLoggedIn ? <Submit /> : <Navigate to="/error" />,
+    element: isLoggedIn ? <Submit /> : <Navigate to="/error" />,
   },
   {
     path: '/finish',
-    element: !isLoggedIn ? <Finish /> : <Navigate to="/error" />,
+    element: isLoggedIn ? <Finish /> : <Navigate to="/error" />,
   },
   {
     path: '/error',

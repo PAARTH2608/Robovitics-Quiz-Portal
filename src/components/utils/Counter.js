@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../styles/Counter.css";
 import { getRemainingTimeUntilMsTimestamp } from "./CounterHelper.js";
 import { completed } from "../../redux/actions/completed.action";

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Socials from "../utils/Socials";
 import StartPageCounter from "../utils/StartPageCounter";
@@ -9,8 +9,7 @@ import Robo from "../../assets/robo.svg";
 import Logo from "../../assets/RoboVITics-Logo.svg";
 import Line from "../../assets/line.svg";
 import Dot from "../../assets/dot.svg";
-import { FaGoogle } from "react-icons/fa";
-import { GoogleLogin, GoogleLogout } from "react-google-login";
+import { GoogleLogin } from "react-google-login";
 
 export const MainDiv = styled.div`
   height: 100vh;
@@ -145,7 +144,6 @@ const Start = () => {
   const clientId =
     "779374762899-3cnshb5pms6ks39et3ns7dj2e2v5nflo.apps.googleusercontent.com";
   const onLoginSuccess = (res) => {
-
     setEmail(res.profileObj.email);
     const isUserIdValid = res.profileObj.email.length > 0;
     if (!isUserIdValid) {
@@ -155,7 +153,7 @@ const Start = () => {
     dispatch(login({ email: res.profileObj.email }));
   };
   const onLoginFailure = (res) => {
-    if(!isLoggedIn) {
+    if (!isLoggedIn) {
       navigate("/submit");
     }
   };
@@ -168,8 +166,8 @@ const Start = () => {
       setTimeLeft(diff);
     }, 1000);
     return () => clearInterval(intervalId);
-  }, [diff,navigate]);
-  // console.log('time',timeLeft)
+  }, [diff, navigate]);
+  console.log('time',timeLeft)
   // console.log('diff ',diff)
 
   return (
@@ -185,14 +183,14 @@ const Start = () => {
         <Tx3>CORE COMMITTEE SELECTIONS 2022</Tx3>
         <Tx4>ROUND 1</Tx4>
         {!isLoggedIn && (
-            <GoogleLogin
-              clientId={clientId}
-              buttonText="Sign In"
-              onSuccess={onLoginSuccess}
-              onFailure={onLoginFailure}
-              cookiePolicy={"single_host_origin"}
-              isSignedIn={true}
-            />
+          <GoogleLogin
+            clientId={clientId}
+            buttonText="Sign In"
+            onSuccess={onLoginSuccess}
+            onFailure={onLoginFailure}
+            cookiePolicy={"single_host_origin"}
+            isSignedIn={true}
+          />
         )}
         {/* !uploaded to be used */}
         {isLoggedIn && isActive && !hasCompleted && parseInt(diff) <= 0 && (
