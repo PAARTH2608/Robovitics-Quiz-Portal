@@ -117,11 +117,16 @@ const Domains = () => {
 	const questionFet = useSelector((state) => state.question);
 
 	const TEA = useSelector((state) => state.question.TEA);
-	const CET = useSelector((state) => state.question);
+	const CET = useSelector((state) => state.question.CET);
 	const date = new Date(TEA);
-	const curr = new Date(CET.CET);
-	console.log(CET.CET);
-
+	const [curr, setCurr] = useState(new Date(CET));
+	console.log(curr, 'lkl');
+	// useEffect(() => {
+	// 	setCurr(new Date(CET.CET));
+	// }, [CET]);
+	useEffect(() => {
+		// dispatch(questionFetch({ id: id }));
+	}, []);
 	return (
 		<MainDiv col={'column'}>
 			<DomainNames>
@@ -165,6 +170,7 @@ const Domains = () => {
 				<Counter
 					countdownTimestampMs={date.getTime()}
 					currentTime={curr.getTime()}
+					setCurr={setCurr}
 				/>
 			</BoxTwo>
 		</MainDiv>

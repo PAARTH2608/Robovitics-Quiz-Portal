@@ -209,7 +209,7 @@ const Start = () => {
 	const errorBool = useSelector((state) => state.auth?.error);
 
 	const dispatch = useDispatch();
-	console.log(currTime, slot);
+	// console.log(currTime, slot);
 	// firebase functions
 	const signInWithFirebase = () => {
 		let google_provider = new firebase.auth.GoogleAuthProvider();
@@ -226,6 +226,18 @@ const Start = () => {
 			})
 			.catch((error) => {});
 	};
+	// useEffect(() => {
+	// 	const uns = firebase.auth().onAuthStateChanged((user) => {
+	// 		if (user) {
+	// 			console.log(user.email);
+	// 			dispatch(login({ email: user.email }));
+	// 			setError('');
+	// 		}
+	// 	});
+	// 	return () => {
+	// 		uns();
+	// 	};
+	// }, []);
 	const signOutWithFirebase = () => {
 		if (errorBool) {
 			firebase.auth().signOut();
@@ -240,8 +252,12 @@ const Start = () => {
 	const curr = new Date(currTime);
 	// console.log("curr ", curr);
 	// var diff = date.getTime() - curr.getTime();
-	const [diff, setDiff] = useState(date.getTime() - curr.getTime());
-	console.log(date, curr);
+	const [diff, setDiff] = useState();
+	console.log(date.getTime(), curr.getTime(), diff);
+	useEffect(() => {
+		setDiff(date.getTime() - curr.getTime());
+	}, [slot, currTime]);
+	// console.log(date, curr);
 	// console.log("curr ", curr);
 	// console.log("diff ", diff);
 
@@ -342,8 +358,8 @@ const Start = () => {
 	// ===============================================================================================================================
 
 	// new code
-	console.log(diff, 'asas');
-
+	// console.log(diff, 'asas');
+	console.log(isLoggedIn, isActive, random, diff);
 	useState(() => {}, [diff]);
 	return (
 		<MainDiv>

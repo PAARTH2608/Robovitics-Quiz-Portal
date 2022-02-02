@@ -11,18 +11,23 @@ const defaultRemainingTime = {
 
 const Counter = ({ countdownTimestampMs, currstampMs, setDiff }) => {
 	const [remainingTime, setRemainingTime] = useState(defaultRemainingTime);
-
+	const [currentTimeUpdate, setCurrentTimeUpdate] = useState();
+	useEffect(() => {
+		setCurrentTimeUpdate(currstampMs);
+	}, [currstampMs]);
 	useEffect(() => {
 		const intervalId = setInterval(() => {
-			updateRemainingTime(countdownTimestampMs, currstampMs);
+			updateRemainingTime(countdownTimestampMs, currentTimeUpdate);
 			setDiff((prev) => prev - 1000);
+			setCurrentTimeUpdate((prev) => prev + 1000);
+			console.log(currentTimeUpdate, 'lk');
 		}, 1000);
 		return () => clearInterval(intervalId);
-	}, [countdownTimestampMs]);
+	}, [countdownTimestampMs, currentTimeUpdate]);
 
-	function updateRemainingTime(countdown, currstampMs) {
+	function updateRemainingTime(countdown, currentTimeUpdate) {
 		setRemainingTime(
-			getRemainingTimeUntilMsTimestamp(countdown, currstampMs)
+			getRemainingTimeUntilMsTimestamp(countdown, currentTimeUpdate)
 		);
 	}
 

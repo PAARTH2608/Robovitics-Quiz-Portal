@@ -12,12 +12,16 @@ const defaultRemainingTime = {
 	days: '11',
 };
 
-const Counter = ({ countdownTimestampMs, currentTime }) => {
+const Counter = ({ countdownTimestampMs, currentTime, setCurr }) => {
 	const [remainingTime, setRemainingTime] = useState(defaultRemainingTime);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const [currentTimeUpdate, setCurrentTimeUpdate] = useState();
 	const id = useSelector((state) => state.auth.id);
 	console.log(remainingTime);
+	useEffect(() => {
+		setCurrentTimeUpdate(currentTime);
+	}, [countdownTimestampMs]);
 	useEffect(() => {
 		remainingTime.seconds === '00' &&
 			remainingTime.minutes === '00' &&
@@ -26,11 +30,12 @@ const Counter = ({ countdownTimestampMs, currentTime }) => {
 			dispatch(completed({ id })) &&
 			navigate('/');
 		const intervalId = setInterval(() => {
-			updateRemainingTime(countdownTimestampMs, currentTime);
+			updateRemainingTime(countdownTimestampMs, currentTimeUpdate);
+			setCurrentTimeUpdate((prev) => prev + 1000);
 		}, 1000);
 		return () => clearInterval(intervalId);
 	}, [countdownTimestampMs, remainingTime, navigate, dispatch, id]);
-
+	console.log(remainingTime);
 	function updateRemainingTime(countdown, currentTime) {
 		setRemainingTime(
 			getRemainingTimeUntilMsTimestamp(countdown, currentTime)
