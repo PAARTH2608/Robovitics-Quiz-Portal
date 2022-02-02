@@ -90,7 +90,13 @@ const Rules = () => {
   }, [id, dispatch]);
 
   const TEA = useSelector((state) => state.question.TEA);
-  const date = new Date(TEA);
+  const date = new Date(TEA).getTime();
+  const CET = useSelector((state) => state.question.CET);
+  
+
+  useEffect(() => {
+    console.log(TEA, CET);
+  }, [TEA, CET]);
 
   const [rot, setRot] = useState(false);
   const handleClick = () => setRot((prevState) => !prevState);
@@ -117,7 +123,7 @@ const Rules = () => {
         <Img src={Logo} alt="logo" />
       </LogoDiv>
       <BoxTwo>
-        <Counter countdownTimestampMs={date.getTime()} />
+        {/* <Counter countdownTimestampMs={date.getTime()} /> */}
       </BoxTwo>
       <SocialDiv disp={"none"}>
         <Socials />

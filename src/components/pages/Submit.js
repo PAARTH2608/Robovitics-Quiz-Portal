@@ -107,7 +107,13 @@ const Submit = () => {
 
   const [isLarge, setIsLarge] = useState(false);
   const [modal, setModal] = useState(false);
-  
+  const [string, setString] = useState(false);
+
+  const regno = useSelector((state) => state.auth.registrationNumber);
+  const name = useSelector((state) => state.auth.name); 
+  let compareString = [regno , name.split(" ")[0].toLowerCase()].join("_");
+  console.log(compareString)
+
   const fileUploadHandler = (e) => {
     e.preventDefault();
     // const formData = new FormData();
@@ -116,13 +122,19 @@ const Submit = () => {
       const file = e.target.files[0];
       
       if (file.name.split(".")[1] === "pdf") {
-        setModal(false);
-        setFile(file);
-        if (file.size > 5000000) {
-          setIsLarge(true);
-          return;
-        } else {
-          setIsLarge(false);
+        if(compareString === file.name.split(".")[0]){
+          setString(false);
+          setModal(false);
+          setFile(file);
+          if (file.size > 5000000) {
+            setIsLarge(true);
+            return;
+          } else {
+            setIsLarge(false);
+          }
+        }
+        else{
+          setString(true);
         }
       }
       else{
@@ -166,6 +178,7 @@ const Submit = () => {
         <Tx6>FILE UPLOAD</Tx6>
         {isLarge && <Tx7>*File size should be &lt; 5mb</Tx7>}
         {modal && <Tx7>*Only PDF files are allowed</Tx7>}
+        {string && <Tx7>*File Format: 21BXXXXXX_dev</Tx7>}
       </Help1>
       <Tx4>ARE YOU SURE YOU WANT TO SUBMIT QUIZ ?</Tx4>
       <HelperDiv>

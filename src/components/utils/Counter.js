@@ -19,12 +19,12 @@ const Counter = ({ countdownTimestampMs }) => {
   const id = useSelector((state) => state.auth.id);
 
   useEffect(() => {
-    remainingTime.seconds === "00" &&
-      remainingTime.minutes === "00" &&
-      remainingTime.hours === "00" &&
-      remainingTime.days === "00" &&
-      dispatch(completed({ id })) &&
-      navigate("/");
+    // remainingTime.seconds === "00" &&
+    //   remainingTime.minutes === "00" &&
+    //   remainingTime.hours === "00" &&
+    //   remainingTime.days === "00" &&
+    //   dispatch(completed({ id })) &&
+    //   navigate("/");
     const intervalId = setInterval(() => {
       updateRemainingTime(countdownTimestampMs);
     }, 1000);

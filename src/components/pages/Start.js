@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Socials from "../utils/Socials";
@@ -196,17 +196,24 @@ const ColDivS = styled.div`
   }
 `;
 const Start = () => {
+  Date.prototype.addHours = function (h) {
+    this.setTime(this.getTime() + h * 60 * 60 * 1000);
+    return this;
+  };
+
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const isLoggedIn = useSelector((state) => state.auth?.isLoggedIn);
   const random = useSelector((state) => state.upload?.random);
   const slot = useSelector((state) => state.auth.slot?.timing);
+  const currTime = useSelector((state) => state.auth.currentTime);
+  // console.log("curr ",currTime)
   const isActive = useSelector((state) => state.auth.slot?.isActive);
   const complete = useSelector((state) => state.completed?.complete);
   const errorBool = useSelector((state) => state.auth?.error);
   // console.log(errorBool);
-  const msg = errorBool ? "Not Registered" : "";
+  // const msg = errorBool ? "Not Registered" : "";
 
   const dispatch = useDispatch();
 
@@ -221,30 +228,111 @@ const Start = () => {
         dispatch(login({ email: result.additionalUserInfo.profile.email }));
         setError("");
       })
-      .catch((error) => {
-      });
+      .catch((error) => {});
   };
   const signOutWithFirebase = () => {
-    if(errorBool){
+    if (errorBool) {
       firebase.auth().signOut();
-    }
-    else{
+    } else {
       return;
     }
-  }
+  };
 
   const date = new Date(slot);
-  const curr = new Date();
-  const diff = date.getTime() - curr.getTime();
+  // console.log("date ",date);
+  const curr = new Date(currTime);
+  console.log("curr ", curr);
+  var diff = date.getTime() - curr.getTime();
+  console.log("curr ", curr);
+  // console.log("diff ", diff);
 
-  const [timeLeft, setTimeLeft] = useState(diff);
+  // const [time, setTime] = useState("");
+  function msToTime(duration) {
+    var milliseconds = Math.floor((duration % 1000) / 100),
+      seconds = Math.floor((duration / 1000) % 60),
+      minutes = Math.floor((duration / (1000 * 60)) % 60),
+      hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+    hours = hours < 10 ? "0" + hours : hours;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    return hours + ":" + minutes + ":" + seconds;
+  }
+
+  // =======================================================================================================================================
+
+  const [time, updateTime] = useState({ min: 0, s: 0 });
+  const startTime = useRef(null);
+  const currentTime = useRef(null);
+
+  const stopTimerStartSubmit = () => {
+    let dif = Math.abs(startTime.current - currentTime.current) / 1000;
+    let days = Math.floor(dif / 86400);
+    dif -= days * 86400;
+    let hours = Math.floor(dif / 3600) % 24;
+    dif -= hours * 3600;
+    let minutes = Math.floor(dif / 60) % 60;
+    dif -= minutes * 60;
+    let seconds = dif % 60;
+    const sec = seconds;
+    const min = minutes;
+    updateTime({ s: sec, min: min });
+  };
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTimeLeft(diff);
+    let myInterval = setInterval(() => {
+      {
+        if (time.s > 0) {
+          updateTime({ ...time, s: Math.floor(time.s - 1) });
+          currentTime.current.setTime(currentTime.current.getTime() + 1000);
+        }
+        if (time.s === 0) {
+          if (time.min === 0) {
+            stopTimerStartSubmit();
+            clearInterval(myInterval);
+          } else {
+            updateTime((prev) => ({
+              min: prev.min - 1,
+              s: 59,
+            }));
+            currentTime.current.setTime(currentTime.current.getTime() + 1000);
+          }
+        }
+      }
     }, 1000);
-    return () => clearInterval(intervalId);
-  }, [diff, navigate]);
+    return () => {
+      clearInterval(myInterval);
+    };
+  });
+
+  const dispTime = () => {
+    let s = "";
+    if (time.min.toString().length < 2) {
+      s = "0" + Math.floor(time.min);
+    } else {
+      s = Math.floor(time.min);
+    }
+    s += ":";
+    if (time.s.toString().length < 2) {
+      s += "0" + Math.floor(time.s);
+    } else {
+      s += Math.floor(time.s);
+    }
+    return s;
+  };
+
+  // ====================================================================================================================================
+  // const [timeLeft, setTimeLeft] = useState(diff);
+
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     setTime(diff);
+  //     diff-=1000;
+  //     // setTimeLeft(timeLeft - 1000);
+  //   }, 1000);
+  //   return () => clearInterval(intervalId);
+  // }, [diff]);
 
   console.log(isLoggedIn, isActive);
 
@@ -273,7 +361,10 @@ const Start = () => {
               pad2={"4%"}
               pd1={"5%"}
               pd2={"8%"}
-              onClick={() => {signInWithFirebase(); signOutWithFirebase()}}
+              onClick={() => {
+                signInWithFirebase();
+                signOutWithFirebase();
+              }}
             >
               <FaGoogle /> Sign In
             </Tx5>
@@ -295,10 +386,8 @@ const Start = () => {
           {isLoggedIn && isActive && random && (
             <Tx6>You have successfully submitted!</Tx6>
           )}
-          
-          {errorBool && (
-            <Tx6>You have not registered!</Tx6>
-          )}
+
+          {errorBool && <Tx6>You have not registered!</Tx6>}
 
           {isLoggedIn && isActive && complete && <Tx6>Time's Up!!</Tx6>}
 
@@ -306,7 +395,8 @@ const Start = () => {
           {isLoggedIn && isActive && !random && parseInt(diff) > 0 && (
             <BoxTwo>
               <Tx6>Your test starts in </Tx6>
-              <StartPageCounter countdownTimestampMs={date.getTime()} />
+              {/* <StartPageCounter countdownTimestampMs={date.getTime()} /> */}
+              {dispTime()}
             </BoxTwo>
           )}
         </TextDiv>
