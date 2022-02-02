@@ -196,16 +196,17 @@ const ColDivS = styled.div`
   }
 `;
 const Start = () => {
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const random = useSelector((state) => state.upload.random);
-  const slot = useSelector((state) => state.auth.slot.timing);
-  const isActive = useSelector((state) => state.auth.slot.isActive);
-  const complete = useSelector((state) => state.completed.complete);
-  const errorBool = useSelector((state) => state.auth.error);
-  console.log(errorBool);
+  const isLoggedIn = useSelector((state) => state.auth?.isLoggedIn);
+  const random = useSelector((state) => state.upload?.random);
+  const slot = useSelector((state) => state.auth.slot?.timing);
+  const isActive = useSelector((state) => state.auth.slot?.isActive);
+  const complete = useSelector((state) => state.completed?.complete);
+  const errorBool = useSelector((state) => state.auth?.error);
+  // console.log(errorBool);
+  const msg = errorBool ? "Not Registered" : "";
 
   const dispatch = useDispatch();
 
@@ -218,9 +219,19 @@ const Start = () => {
         console.log(result.additionalUserInfo.profile.email);
         // setEmail(result.additionalUserInfo.profile.email);
         dispatch(login({ email: result.additionalUserInfo.profile.email }));
+        setError("");
       })
-      .catch((error) => {});
+      .catch((error) => {
+      });
   };
+  const signOutWithFirebase = () => {
+    if(errorBool){
+      firebase.auth().signOut();
+    }
+    else{
+      return;
+    }
+  }
 
   const date = new Date(slot);
   const curr = new Date();
@@ -262,7 +273,7 @@ const Start = () => {
               pad2={"4%"}
               pd1={"5%"}
               pd2={"8%"}
-              onClick={signInWithFirebase}
+              onClick={() => {signInWithFirebase(); signOutWithFirebase()}}
             >
               <FaGoogle /> Sign In
             </Tx5>
@@ -283,6 +294,10 @@ const Start = () => {
           {/* user logged in and is active and has uploaded and completed the test */}
           {isLoggedIn && isActive && random && (
             <Tx6>You have successfully submitted!</Tx6>
+          )}
+          
+          {errorBool && (
+            <Tx6>You have not registered!</Tx6>
           )}
 
           {isLoggedIn && isActive && complete && <Tx6>Time's Up!!</Tx6>}
