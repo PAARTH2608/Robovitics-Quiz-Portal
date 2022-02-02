@@ -5,12 +5,14 @@ import Socials from "../utils/Socials";
 import StartPageCounter from "../utils/StartPageCounter";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/actions/auth.action";
+import { FaGoogle } from "react-icons/fa";
 import Robo from "../../assets/robo.svg";
 import Logo from "../../assets/RoboVITics-Logo.svg";
 import Line from "../../assets/line.svg";
 import Dot from "../../assets/dot.svg";
 import { GoogleLogin } from "react-google-login";
 import { CDiv } from "./Finish";
+import { firebase } from "../../firebase/firebase";
 
 export const MainDiv = styled.div`
   height: 100vh;
@@ -194,47 +196,35 @@ const ColDivS = styled.div`
   }
 `;
 const Start = () => {
-  // const [error, setError] = useState(false);
-  const [email, setEmail] = useState("");
+  const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const random = useSelector((state) => state.upload.random);
   const slot = useSelector((state) => state.auth.slot.timing);
   const isActive = useSelector((state) => state.auth.slot.isActive);
   const complete = useSelector((state) => state.completed.complete);
-  // console.log("yo",complete)
+  const errorBool = useSelector((state) => state.auth.error);
+  console.log(errorBool);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const toggleHandler = () => {
-    const userEmail = email;
-    const isUserIdValid = userEmail.length > 0;
-
-    if (!isUserIdValid) {
-      return;
-    }
-
-    dispatch(login({ email: userEmail }));
+  const signInWithFirebase = () => {
+    let google_provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(google_provider)
+      .then((result) => {
+        console.log(result.additionalUserInfo.profile.email);
+        // setEmail(result.additionalUserInfo.profile.email);
+        dispatch(login({ email: result.additionalUserInfo.profile.email }));
+      })
+      .catch((error) => {});
   };
 
   const date = new Date(slot);
   const curr = new Date();
   const diff = date.getTime() - curr.getTime();
-  // console.log("diff ",diff)
-
-  const clientId =
-    "779374762899-3cnshb5pms6ks39et3ns7dj2e2v5nflo.apps.googleusercontent.com";
-  const onLoginSuccess = (res) => {
-    setEmail(res.profileObj.email);
-    const isUserIdValid = res.profileObj.email.length > 0;
-    if (!isUserIdValid) {
-      return;
-    }
-    dispatch(login({ email: res.profileObj.email }));
-  };
-
-  const onLoginFailure = (res) => {};
 
   const [timeLeft, setTimeLeft] = useState(diff);
 
@@ -245,12 +235,6 @@ const Start = () => {
     return () => clearInterval(intervalId);
   }, [diff, navigate]);
 
-  const Styles = {
-    padding: "4%",
-    fontSize: "1.5rem",
-    color: "transparent",
-    border: "1px solid white",
-  };
   console.log(isLoggedIn, isActive);
 
   return (
@@ -273,25 +257,23 @@ const Start = () => {
 
           {/* if not logged in */}
           {!isLoggedIn && (
-            <GoogleLogin
-              clientId={clientId}
-              buttonText="Sign In"
-              onSuccess={onLoginSuccess}
-              onFailure={onLoginFailure}
-              cookiePolicy={"single_host_origin"}
-              isSignedIn={true}
-              theme="dark"
-              style={Styles}
-            />
+            <Tx5
+              pad1={"2%"}
+              pad2={"4%"}
+              pd1={"5%"}
+              pd2={"8%"}
+              onClick={signInWithFirebase}
+            >
+              <FaGoogle /> Sign In
+            </Tx5>
           )}
 
           {/* user logged in and is active but has not uploaded the file and thus has not completed the test and is within test hours */}
-          {isLoggedIn && isActive && (!random) && parseInt(diff) <= 0 && (
+          {isLoggedIn && isActive && !random && parseInt(diff) <= 0 && (
             <Tx5 pad1={"2%"} pad2={"4%"} pd1={"5%"} pd2={"8%"}>
               <Link
                 to={"/rules"}
                 style={{ textDecoration: "none", color: "black" }}
-                onSubmit={toggleHandler}
               >
                 START QUIZ
               </Link>
@@ -303,9 +285,7 @@ const Start = () => {
             <Tx6>You have successfully submitted!</Tx6>
           )}
 
-          {isLoggedIn && isActive && complete && (
-            <Tx6>Time's Up!!</Tx6>
-          )}
+          {isLoggedIn && isActive && complete && <Tx6>Time's Up!!</Tx6>}
 
           {/* user logged in & is active but has not uploaded the doc and has arrived before the test */}
           {isLoggedIn && isActive && !random && parseInt(diff) > 0 && (

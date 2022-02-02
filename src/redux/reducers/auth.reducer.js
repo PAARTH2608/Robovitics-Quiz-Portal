@@ -19,7 +19,8 @@ const initialState = {
   hasUploaded:false,
   hasCompleted:false,
   message: '',
-  testEndAt:''
+  testEndAt:'',
+  error:false
 };
 
 const AuthReducer = (state = initialState, action) => {
@@ -41,8 +42,9 @@ const AuthReducer = (state = initialState, action) => {
         isLoggedIn: true,
         hasUploaded: action.data.hasUploaded,
         hasCompleted: action.data.hasCompleted,
-        message:'ok',
-        testEndAt:action.data.testEndAt
+        message:'',
+        testEndAt:action.data.testEndAt,
+        error:false
       }
     case AuthTypes.LOGIN_ERROR:
       return {
@@ -50,6 +52,7 @@ const AuthReducer = (state = initialState, action) => {
         message: action.error.message,
         hasUploaded: false,
         hasCompleted: false,
+        error:true
       }
     case AuthTypes.LOGOUT_REQUEST:
       return {
