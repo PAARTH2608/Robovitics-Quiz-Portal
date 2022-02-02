@@ -10,7 +10,6 @@ import Robo from "../../assets/robo.svg";
 import Logo from "../../assets/RoboVITics-Logo.svg";
 import Line from "../../assets/line.svg";
 import Dot from "../../assets/dot.svg";
-import { GoogleLogin } from "react-google-login";
 import { CDiv } from "./Finish";
 import { firebase } from "../../firebase/firebase";
 
@@ -195,28 +194,26 @@ const ColDivS = styled.div`
     justify-content: space-around;
   }
 `;
+
+
 const Start = () => {
-  Date.prototype.addHours = function (h) {
-    this.setTime(this.getTime() + h * 60 * 60 * 1000);
-    return this;
-  };
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  // fetched from the reducers
   const isLoggedIn = useSelector((state) => state.auth?.isLoggedIn);
   const random = useSelector((state) => state.upload?.random);
   const slot = useSelector((state) => state.auth.slot?.timing);
   const currTime = useSelector((state) => state.auth.currentTime);
-  // console.log("curr ",currTime)
   const isActive = useSelector((state) => state.auth.slot?.isActive);
   const complete = useSelector((state) => state.completed?.complete);
   const errorBool = useSelector((state) => state.auth?.error);
-  // console.log(errorBool);
-  // const msg = errorBool ? "Not Registered" : "";
+
 
   const dispatch = useDispatch();
 
+  // firebase functions
   const signInWithFirebase = () => {
     let google_provider = new firebase.auth.GoogleAuthProvider();
     firebase
@@ -238,89 +235,96 @@ const Start = () => {
     }
   };
 
+  // date functions
   const date = new Date(slot);
   // console.log("date ",date);
   const curr = new Date(currTime);
-  console.log("curr ", curr);
+  // console.log("curr ", curr);
   var diff = date.getTime() - curr.getTime();
-  console.log("curr ", curr);
+  // console.log("curr ", curr);
   // console.log("diff ", diff);
 
   // const [time, setTime] = useState("");
-  function msToTime(duration) {
-    var milliseconds = Math.floor((duration % 1000) / 100),
-      seconds = Math.floor((duration / 1000) % 60),
-      minutes = Math.floor((duration / (1000 * 60)) % 60),
-      hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+  // function msToTime(duration) {
+  //   var milliseconds = Math.floor((duration % 1000) / 100),
+  //     seconds = Math.floor((duration / 1000) % 60),
+  //     minutes = Math.floor((duration / (1000 * 60)) % 60),
+  //     hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
 
-    hours = hours < 10 ? "0" + hours : hours;
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
+  //   hours = hours < 10 ? "0" + hours : hours;
+  //   minutes = minutes < 10 ? "0" + minutes : minutes;
+  //   seconds = seconds < 10 ? "0" + seconds : seconds;
 
-    return hours + ":" + minutes + ":" + seconds;
-  }
+  //   return hours + ":" + minutes + ":" + seconds;
+  // }
 
   // =======================================================================================================================================
+  // Date.prototype.addHours = function (h) {
+  //   this.setTime(this.getTime() + h * 60 * 60 * 1000);
+  //   return this;
+  // };
 
-  const [time, updateTime] = useState({ min: 0, s: 0 });
-  const startTime = useRef(null);
-  const currentTime = useRef(null);
+  // const [time, updateTime] = useState({ min: 0, s: 0 });
+  // const startTime = useRef(null);
+  // const currentTime = useRef(null);
+  // startTime.current(curr);
+  // currentTime.current(curr);
 
-  const stopTimerStartSubmit = () => {
-    let dif = Math.abs(startTime.current - currentTime.current) / 1000;
-    let days = Math.floor(dif / 86400);
-    dif -= days * 86400;
-    let hours = Math.floor(dif / 3600) % 24;
-    dif -= hours * 3600;
-    let minutes = Math.floor(dif / 60) % 60;
-    dif -= minutes * 60;
-    let seconds = dif % 60;
-    const sec = seconds;
-    const min = minutes;
-    updateTime({ s: sec, min: min });
-  };
+  // const stopTimerStartSubmit = () => {
+  //   let dif = Math.abs(startTime.current - currentTime.current) / 1000;
+  //   let days = Math.floor(dif / 86400);
+  //   dif -= days * 86400;
+  //   let hours = Math.floor(dif / 3600) % 24;
+  //   dif -= hours * 3600;
+  //   let minutes = Math.floor(dif / 60) % 60;
+  //   dif -= minutes * 60;
+  //   let seconds = dif % 60;
+  //   const sec = seconds;
+  //   const min = minutes;
+  //   updateTime({ s: sec, min: min });
+  // };
 
-  useEffect(() => {
-    let myInterval = setInterval(() => {
-      {
-        if (time.s > 0) {
-          updateTime({ ...time, s: Math.floor(time.s - 1) });
-          currentTime.current.setTime(currentTime.current.getTime() + 1000);
-        }
-        if (time.s === 0) {
-          if (time.min === 0) {
-            stopTimerStartSubmit();
-            clearInterval(myInterval);
-          } else {
-            updateTime((prev) => ({
-              min: prev.min - 1,
-              s: 59,
-            }));
-            currentTime.current.setTime(currentTime.current.getTime() + 1000);
-          }
-        }
-      }
-    }, 1000);
-    return () => {
-      clearInterval(myInterval);
-    };
-  });
+  // useEffect(() => {
+  //   let myInterval = setInterval(() => {
+  //     {
+  //       if (time.s > 0) {
+  //         updateTime({ ...time, s: Math.floor(time.s - 1) });
+  //         currentTime.current.setTime(currentTime.current.getTime() + 1000);
+  //       }
+  //       if (time.s === 0) {
+  //         if (time.min === 0) {
+  //           stopTimerStartSubmit();
+  //           clearInterval(myInterval);
+  //         } else {
+  //           updateTime((prev) => ({
+  //             min: prev.min - 1,
+  //             s: 59,
+  //           }));
+  //           currentTime.current.setTime(currentTime.current.getTime() + 1000);
+  //         }
+  //       }
+  //     }
+  //   }, 1000);
+  //   return () => {
+  //     clearInterval(myInterval);
+  //   };
+  // });
 
-  const dispTime = () => {
-    let s = "";
-    if (time.min.toString().length < 2) {
-      s = "0" + Math.floor(time.min);
-    } else {
-      s = Math.floor(time.min);
-    }
-    s += ":";
-    if (time.s.toString().length < 2) {
-      s += "0" + Math.floor(time.s);
-    } else {
-      s += Math.floor(time.s);
-    }
-    return s;
-  };
+  // const dispTime = () => {
+  //   let s = "";
+  //   if (time.min.toString().length < 2) {
+  //     s = "0" + Math.floor(time.min);
+  //   } else {
+  //     s = Math.floor(time.min);
+  //   }
+  //   s += ":";
+  //   if (time.s.toString().length < 2) {
+  //     s += "0" + Math.floor(time.s);
+  //   } else {
+  //     s += Math.floor(time.s);
+  //   }
+  //   return s;
+  // };
 
   // ====================================================================================================================================
   // const [timeLeft, setTimeLeft] = useState(diff);
@@ -334,7 +338,10 @@ const Start = () => {
   //   return () => clearInterval(intervalId);
   // }, [diff]);
 
-  console.log(isLoggedIn, isActive);
+  // ===============================================================================================================================
+  
+  // new code
+
 
   return (
     <MainDiv>
@@ -395,8 +402,8 @@ const Start = () => {
           {isLoggedIn && isActive && !random && parseInt(diff) > 0 && (
             <BoxTwo>
               <Tx6>Your test starts in </Tx6>
-              {/* <StartPageCounter countdownTimestampMs={date.getTime()} /> */}
-              {dispTime()}
+              <StartPageCounter countdownTimestampMs={date.getTime()} />
+              {/* {dispTime()} */}
             </BoxTwo>
           )}
         </TextDiv>
