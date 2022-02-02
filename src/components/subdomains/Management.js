@@ -19,7 +19,7 @@ const Management = (props) => {
         <Div key={item._id}>
           <Para>{item.text}</Para>
           <Div2>
-            <Img src={item.photoURL} alt="pic" />
+            <Img src={item?.photoURL} alt="pic" />
           </Div2>
         </Div>
       ))}
