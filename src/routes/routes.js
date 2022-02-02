@@ -6,26 +6,26 @@ import Rules from '../components/pages/Rules';
 import Start from '../components/pages/Start';
 import Submit from '../components/pages/Submit';
 
-const routes = (isLoggedIn, complete) => [
+const routes = (isLoggedIn, random) => [
   {
     path: '/',
     element: <Start />,
   },
   {
     path: '/rules',
-    element: (isLoggedIn && !complete) ? <Rules /> : <Navigate to="/error" />,
+    element: (isLoggedIn && !random) ? <Rules /> : <Navigate to="/" />,
   },
   {
     path: '/domains',
-    element: (isLoggedIn && !complete) ? <Domains /> : <Navigate to="/error" />,
+    element: (isLoggedIn && !random) ? <Domains /> : <Navigate to="/" />,
   },
   {
     path: '/submit',
-    element: (isLoggedIn && !complete) ? <Submit /> : <Navigate to="/error" />,
+    element: (isLoggedIn && !random) ? <Submit /> : <Navigate to="/" />,
   },
   {
     path: '/finish',
-    element: (isLoggedIn && !complete) ? <Finish /> : <Navigate to="/error" />,
+    element: (isLoggedIn && !random) ? <Finish /> : <Navigate to="/" />,
   },
   {
     path: '/error',

@@ -89,7 +89,7 @@ const Tx6 = styled.h2`
 	}
 `;
 const Tx7 = styled.h2`
-	color: white;
+	color: red;
 	font-size: 1rem;
 	font-family: 'Roboto', sans-serif;
 `;

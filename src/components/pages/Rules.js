@@ -89,14 +89,12 @@ const Rules = () => {
     dispatch(questionFetch({ id: id }));
   }, [id, dispatch]);
 
-  const TEA = useSelector((state) => state.question.TEA);
-  const date = new Date(TEA).getTime();
-  const CET = useSelector((state) => state.question.CET);
+	const TEA = useSelector((state) => state.question.TEA);
+	const CET = useSelector((state) => state.question.CET);
+	const date = new Date(TEA);
+	const [curr, setCurr] = useState(new Date(CET));
+	console.log(curr, 'lkl');
   
-
-  useEffect(() => {
-    console.log(TEA, CET);
-  }, [TEA, CET]);
 
   const [rot, setRot] = useState(false);
   const handleClick = () => setRot((prevState) => !prevState);
@@ -123,7 +121,11 @@ const Rules = () => {
         <Img src={Logo} alt="logo" />
       </LogoDiv>
       <BoxTwo>
-        {/* <Counter countdownTimestampMs={date.getTime()} /> */}
+      <Counter
+					countdownTimestampMs={date.getTime()}
+					currentTime={curr.getTime()}
+					setCurr={setCurr}
+				/>
       </BoxTwo>
       <SocialDiv disp={"none"}>
         <Socials />

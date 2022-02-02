@@ -3,11 +3,10 @@ import { useSelector } from "react-redux";
 import routes from "./routes/routes";
 
 function App() {
-  const complete = useSelector((state) => state.completed.complete);
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-  // console.log(hasCompleted, isLoggedIn);
+  const random = useSelector(state => state.upload.random);
   
-  const routing = useRoutes(routes(isLoggedIn, complete));
+  const routing = useRoutes(routes(isLoggedIn, random));
   return (
     <>
       {routing}
