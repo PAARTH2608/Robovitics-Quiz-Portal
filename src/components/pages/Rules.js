@@ -90,11 +90,11 @@ const Rules = () => {
     dispatch(questionFetch({ id: id }));
   }, [id, dispatch]);
 
-	const TEA = useSelector((state) => state.question.TEA);
-	const CET = useSelector((state) => state.question.CET);
-	const date = new Date(TEA);
-	const [curr, setCurr] = useState(new Date(CET));
-	console.log(curr, 'lkl');
+	// const TEA = useSelector((state) => state.question.TEA);
+	// const CET = useSelector((state) => state.question.CET);
+	// // const date = new Date(TEA);
+	// const [curr, setCurr] = useState(new Date(CET));
+	// console.log(curr, 'lkl');
   
 
   const [rot, setRot] = useState(false);
@@ -121,13 +121,13 @@ const Rules = () => {
       <LogoDiv src={Logo} alt="logo" disp={"none"}>
         <Img src={Logo} alt="logo" />
       </LogoDiv>
-      <BoxTwo>
+      {/* <BoxTwo>
       <Counter
 					countdownTimestampMs={date.getTime()}
 					currentTime={curr.getTime()}
 					setCurr={setCurr}
 				/>
-      </BoxTwo>
+      </BoxTwo> */}
       <SocialDiv disp={"none"}>
         <Socials />
       </SocialDiv>
