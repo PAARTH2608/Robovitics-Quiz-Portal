@@ -11,8 +11,13 @@ export const Div2 = styled.div`
   align-items: center;
 `;
 export const Img = styled.img`
-  height: 300px;
-  width: 300px;
+  height: 350px;
+  width: 700px;
+
+  @media (max-width: 600px) {
+    height: 200px;
+    width: 300px;
+  }
 `;
 const Management = (props) => {
   return (

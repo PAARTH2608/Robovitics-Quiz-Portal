@@ -8,7 +8,7 @@ const rules = [
   "7. It’s great to have choices in the life but it is mandatory to attempt the Management and logical reasoning and at least one of the three technical sections provided (CSE, Electrical, Mechanical). You can attempt multiple sections.",
   "8. In Logical Section you will be rewarded +3 marks for a correct answer and - 1 for wrong answer and for all the other domains +3 marks for a correct answer and no negative marks for wrong answer.",
   "9. For MCQs, write down the option as well as the answer [ex: b) python]. ",
-  "10. Answers should be written on paper only, scanned (as a pdf) and uploaded with the name of the file in the following format: Name_RegistrationNumber.",
+  "10. Answers should be written on paper only, scanned (as a pdf) and uploaded with the name of the file in the following format: RegistrationNumber(in uppercase)_Name(in lowercase).",
   "11. It is natural to feel “there are many better than me in the class”. Do not validate by looking in their papers. (DO NOT COPY)",
   "12. You cannot use mobile phone or calculator during examination.",
   "13. Writing a test is about what you know and not what you hope to get out of luck. (Write the answer only when you are sure)",

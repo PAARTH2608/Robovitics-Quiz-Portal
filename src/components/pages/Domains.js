@@ -70,6 +70,43 @@ const Helper = styled.div`
   font-size: 1.3rem;
   font-family: "Roboto", sans-serif;
 `;
+const QueDiv = styled.div`
+  height: 60vh;
+  width: 80%;
+  border: 2px solid #5be4ff;
+  border-radius: 10px;
+  overflow: scroll;
+  padding: 20px;
+    
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      99deg,
+      rgba(98, 84, 255, 1) 0%,
+      rgba(62, 195, 213, 1) 100%
+    );
+    border-radius: 10px;
+    margin-right: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  ::-webkit-scrollbar-corner {
+    background-color: transparent;
+    }
+    overflow-x: hidden;
+`;
 const Domains = () => {
   const [rot, setRot] = useState(false);
   const navigate = useNavigate();
@@ -138,35 +175,35 @@ const Domains = () => {
     // dispatch(questionFetch({ id: id }));
   }, []);
   useEffect(() => {
-  	document.addEventListener('contextmenu', function (e) {
-  		e.preventDefault();
-  	});
-  	document.onkeydown = function (e) {
-  		if (e.keyCode == 123) {
-  			return false;
-  		}
-  		if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-  			return false;
-  		}
-  		if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-  			return false;
-  		}
-  		if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-  			return false;
-  		}
-  		if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-  			return false;
-  		}
-  		if (e.ctrlKey && e.shiftKey) {
-  			return false;
-  		}
-  		if (e.ctrlKey) {
-  			return false;
-  		}
-  		if (e.shiftKey) {
-  			return false;
-  		}
-  	};
+    document.addEventListener("contextmenu", function (e) {
+      e.preventDefault();
+    });
+    document.onkeydown = function (e) {
+      if (e.keyCode == 123) {
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey && e.keyCode == "I".charCodeAt(0)) {
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey && e.keyCode == "C".charCodeAt(0)) {
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey && e.keyCode == "J".charCodeAt(0)) {
+        return false;
+      }
+      if (e.ctrlKey && e.keyCode == "U".charCodeAt(0)) {
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey) {
+        return false;
+      }
+      if (e.ctrlKey) {
+        return false;
+      }
+      if (e.shiftKey) {
+        return false;
+      }
+    };
   });
   return (
     <MainDiv col={"column"}>
@@ -187,13 +224,13 @@ const Domains = () => {
           Electrical
         </P>
       </DomainNames>
-      <RulesDiv>
+      <QueDiv>
         {clickOne && <Management packet={questionFet.SET.MGM} />}
         {clickTwo && <Logical packet={questionFet.SET.LOG} />}
         {clickThree && <Mechanical packet={questionFet.SET.MEC} />}
         {clickFour && <CSE packet={questionFet.SET.CSE} />}
         {clickFive && <Electrical packet={questionFet.SET.ELE} />}
-      </RulesDiv>
+      </QueDiv>
       <Helper>Note: Upload all your answers together in a single file.</Helper>
       <Tx5
         pad1={"1%"}
