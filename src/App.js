@@ -1,17 +1,24 @@
-import { useRoutes } from "react-router-dom";
-import { useSelector } from "react-redux";
-import routes from "./routes/routes";
+import { useRoutes } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import routes from './routes/routes';
+import { useEffect } from 'react';
+import { login } from './redux/actions/auth.action';
 
 function App() {
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-  const random = useSelector(state => state.upload.random);
-  
-  const routing = useRoutes(routes(isLoggedIn, random));
-  return (
-    <>
-      {routing}
-    </>
-  );
+	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+	const random = useSelector((state) => state.upload.random);
+	const email = useSelector((state) => state.auth.email);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		console.log(random, 'this is random');
+		if (random) {
+			dispatch(login({ email: email }));
+		}
+	}, [random]);
+
+	const routing = useRoutes(routes(isLoggedIn, random));
+	return <>{routing}</>;
 }
 
 export default App;
