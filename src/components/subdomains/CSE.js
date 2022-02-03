@@ -13,14 +13,24 @@ export const Para = styled.p`
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+	display:flex;
 `;
+export const Helper = styled.div`
+width:95%;
+`;
+export const Index = styled.div`
+width:1.5%;
 
+@media (max-width: 600px) {
+	width:5%;
+}
+`;
 const CSE = (props) => {
 	return (
 		<QuestionDiv>
-			{props.packet.map((item) => (
+			{props.packet.map((item, index) => (
 				<Div key={item._id}>
-					<Para>{item.text}</Para>
+					<Para><Index>{index+1}</Index>.<Helper>{item.text}</Helper></Para>
 					<Div2>
 						{item.photoURL ? (
 							<Img src={item?.photoURL} alt='pic' />

@@ -129,7 +129,7 @@ const Submit = () => {
       // formData.append("file", e.target.files[0]);
       const file = e.target.files[0];
 
-      if (file.name.split(".")[1] === "pdf") {
+      if (file.name.split(".")[1].toLowerCase() === "pdf") {
         // console.log(compareString, 'lkl', file.name.split('.')[0]);
         if (compareString === file.name.split(".")[0]) {
           setString(false);
