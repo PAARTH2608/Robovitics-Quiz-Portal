@@ -208,8 +208,9 @@ const Start = () => {
 	const complete = useSelector((state) => state.completed?.complete);
 	const errorBool = useSelector((state) => state.auth?.error);
 
+	console.log("random ",random)
+
 	const dispatch = useDispatch();
-	// console.log(currTime, slot);
 	// firebase functions
 	const signInWithFirebase = () => {
 		let google_provider = new firebase.auth.GoogleAuthProvider();
@@ -226,18 +227,7 @@ const Start = () => {
 			})
 			.catch((error) => {});
 	};
-	// useEffect(() => {
-	// 	const uns = firebase.auth().onAuthStateChanged((user) => {
-	// 		if (user) {
-	// 			console.log(user.email);
-	// 			dispatch(login({ email: user.email }));
-	// 			setError('');
-	// 		}
-	// 	});
-	// 	return () => {
-	// 		uns();
-	// 	};
-	// }, []);
+
 	const signOutWithFirebase = () => {
 		if (errorBool) {
 			firebase.auth().signOut();
@@ -253,112 +243,11 @@ const Start = () => {
 	// console.log("curr ", curr);
 	// var diff = date.getTime() - curr.getTime();
 	const [diff, setDiff] = useState();
-	console.log(date.getTime(), curr.getTime(), diff);
+	console.log("details ",date.getTime(), curr.getTime(), diff);
 	useEffect(() => {
 		setDiff(date.getTime() - curr.getTime());
 	}, [slot, currTime]);
-	// console.log(date, curr);
-	// console.log("curr ", curr);
-	// console.log("diff ", diff);
 
-	// const [time, setTime] = useState("");
-	// function msToTime(duration) {
-	//   var milliseconds = Math.floor((duration % 1000) / 100),
-	//     seconds = Math.floor((duration / 1000) % 60),
-	//     minutes = Math.floor((duration / (1000 * 60)) % 60),
-	//     hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-
-	//   hours = hours < 10 ? "0" + hours : hours;
-	//   minutes = minutes < 10 ? "0" + minutes : minutes;
-	//   seconds = seconds < 10 ? "0" + seconds : seconds;
-
-	//   return hours + ":" + minutes + ":" + seconds;
-	// }
-
-	// =======================================================================================================================================
-	// Date.prototype.addHours = function (h) {
-	//   this.setTime(this.getTime() + h * 60 * 60 * 1000);
-	//   return this;
-	// };
-
-	// const [time, updateTime] = useState({ min: 0, s: 0 });
-	// const startTime = useRef(null);
-	// const currentTime = useRef(null);
-	// startTime.current(curr);
-	// currentTime.current(curr);
-
-	// const stopTimerStartSubmit = () => {
-	//   let dif = Math.abs(startTime.current - currentTime.current) / 1000;
-	//   let days = Math.floor(dif / 86400);
-	//   dif -= days * 86400;
-	//   let hours = Math.floor(dif / 3600) % 24;
-	//   dif -= hours * 3600;
-	//   let minutes = Math.floor(dif / 60) % 60;
-	//   dif -= minutes * 60;
-	//   let seconds = dif % 60;
-	//   const sec = seconds;
-	//   const min = minutes;
-	//   updateTime({ s: sec, min: min });
-	// };
-
-	// useEffect(() => {
-	//   let myInterval = setInterval(() => {
-	//     {
-	//       if (time.s > 0) {
-	//         updateTime({ ...time, s: Math.floor(time.s - 1) });
-	//         currentTime.current.setTime(currentTime.current.getTime() + 1000);
-	//       }
-	//       if (time.s === 0) {
-	//         if (time.min === 0) {
-	//           stopTimerStartSubmit();
-	//           clearInterval(myInterval);
-	//         } else {
-	//           updateTime((prev) => ({
-	//             min: prev.min - 1,
-	//             s: 59,
-	//           }));
-	//           currentTime.current.setTime(currentTime.current.getTime() + 1000);
-	//         }
-	//       }
-	//     }
-	//   }, 1000);
-	//   return () => {
-	//     clearInterval(myInterval);
-	//   };
-	// });
-
-	// const dispTime = () => {
-	//   let s = "";
-	//   if (time.min.toString().length < 2) {
-	//     s = "0" + Math.floor(time.min);
-	//   } else {
-	//     s = Math.floor(time.min);
-	//   }
-	//   s += ":";
-	//   if (time.s.toString().length < 2) {
-	//     s += "0" + Math.floor(time.s);
-	//   } else {
-	//     s += Math.floor(time.s);
-	//   }
-	//   return s;
-	// };
-
-	// ====================================================================================================================================
-	// const [timeLeft, setTimeLeft] = useState(diff);
-
-	// useEffect(() => {
-	//   const intervalId = setInterval(() => {
-	//     setTime(diff);
-	//     diff-=1000;
-	//     // setTimeLeft(timeLeft - 1000);
-	//   }, 1000);
-	//   return () => clearInterval(intervalId);
-	// }, [diff]);
-
-	// ===============================================================================================================================
-
-	// new code
-	// console.log(diff, 'asas');
 	console.log(isLoggedIn, isActive, random, diff);
 	useState(() => {}, [diff]);
 	return (
@@ -412,7 +301,8 @@ const Start = () => {
 					{isLoggedIn && isActive && random && (
 						<Tx6>You have successfully submitted!</Tx6>
 					)}
-
+					
+					{/* user tries with different email id */}
 					{errorBool && <Tx6>You have not registered!</Tx6>}
 
 					{isLoggedIn && isActive && complete && (
@@ -428,7 +318,6 @@ const Start = () => {
 								currstampMs={curr.getTime()}
 								setDiff={setDiff}
 							/>
-							{/* {dispTime()} */}
 						</BoxTwo>
 					)}
 				</TextDiv>
