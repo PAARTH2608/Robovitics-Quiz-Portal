@@ -20,7 +20,7 @@ const Counter = ({ countdownTimestampMs, currstampMs, setDiff }) => {
 			updateRemainingTime(countdownTimestampMs, currentTimeUpdate);
 			setDiff((prev) => prev - 1000);
 			setCurrentTimeUpdate((prev) => prev + 1000);
-			console.log(currentTimeUpdate, 'lk');
+			// console.log(currentTimeUpdate, 'lk');
 		}, 1000);
 		return () => clearInterval(intervalId);
 	}, [countdownTimestampMs, currentTimeUpdate]);

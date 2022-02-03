@@ -11,7 +11,7 @@ function App() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		console.log(random, 'this is random');
+		// console.log(random, 'this is random');
 		if (random) {
 			dispatch(login({ email: email }));
 		}

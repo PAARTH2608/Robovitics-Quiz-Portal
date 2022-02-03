@@ -167,7 +167,7 @@ const Domains = () => {
 	const CET = useSelector((state) => state.question.CET);
 	const date = new Date(TEA);
 	const curr = new Date(CET);
-	console.log(CET, 'current time', TEA, 'test end time ');
+	// console.log(CET, 'current time', TEA, 'test end time ');
 	// const [curr, setCurr] = useState(new Date(CET));
 	// console.log(curr, 'lkl');
 	// useEffect(() => {

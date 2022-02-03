@@ -19,7 +19,7 @@ const Counter = ({ countdownTimestampMs, currentTime, cet }) => {
 	const dispatch = useDispatch();
 	const [currentTimeUpdate, setCurrentTimeUpdate] = useState();
 	const id = useSelector((state) => state.auth.id);
-	console.log(cet);
+	// console.log(cet);
 	// console.log(remainingTime);
 	useEffect(() => {
 		setCurrentTimeUpdate(currentTime);

@@ -116,13 +116,13 @@ const Submit = () => {
 	const [loading, setLoading] = useState(false);
 
 	const random = useSelector((state) => state.upload.random);
-	console.log('random', random);
+	// console.log('random', random);
 	const regno = useSelector((state) => state.auth.registrationNumber);
 	const name = useSelector((state) => state.auth.name);
 	let compareString = [regno, name.split(' ')[0].toLowerCase()]
 		.join('_')
 		.replace('.', '');
-	console.log(compareString);
+	// console.log(compareString);
 
 	const fileUploadHandler = (e) => {
 		e.preventDefault();
@@ -130,7 +130,7 @@ const Submit = () => {
 		if (e.target.files[0]) {
 			// formData.append("file", e.target.files[0]);
 			const file = e.target.files[0];
-			console.log(file);
+			// console.log(file);
 			if (file.type === 'application/pdf') {
 				// console.log(compareString, 'lkl', file.name.split('.')[0]);
 				if (compareString === file.name.split('.')[0]) {

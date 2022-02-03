@@ -26,7 +26,7 @@ const initialState = {
 };
 
 const AuthReducer = (state = initialState, action) => {
-	console.log(action.data, 'lkj');
+	// console.log(action.data, 'lkj');
 	switch (action.type) {
 		case AuthTypes.LOGIN_SUCCESS:
 			return {

@@ -91,7 +91,7 @@ const Finish = () => {
 	const dispatch = useDispatch();
 	const email = useSelector((state) => state.auth.email);
 	useEffect(() => {
-		console.log('calling dispatch');
+		// console.log('calling dispatch');
 		dispatch(login({ email: email }));
 		firebase.auth().signOut();
 	}, []);
