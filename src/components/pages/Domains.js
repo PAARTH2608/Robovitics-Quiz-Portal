@@ -128,6 +128,37 @@ const Domains = () => {
 	useEffect(() => {
 		// dispatch(questionFetch({ id: id }));
 	}, []);
+	useEffect(() => {
+		document.addEventListener('contextmenu', function (e) {
+			e.preventDefault();
+		});
+		document.onkeydown = function (e) {
+			if (e.keyCode == 123) {
+				return false;
+			}
+			if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+				return false;
+			}
+			if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+				return false;
+			}
+			if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+				return false;
+			}
+			if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+				return false;
+			}
+			if (e.ctrlKey && e.shiftKey) {
+				return false;
+			}
+			if (e.ctrlKey) {
+				return false;
+			}
+			if (e.shiftKey) {
+				return false;
+			}
+		};
+	});
 	return (
 		<MainDiv col={'column'}>
 			<DomainNames>
@@ -154,7 +185,12 @@ const Domains = () => {
 				{clickFour && <CSE packet={questionFet.SET.CSE} />}
 				{clickFive && <Electrical packet={questionFet.SET.ELE} />}
 			</RulesDiv>
-			<Tx5 pad1={'1%'} pad2={'2%'} pad1S={'3%'} pad2S={'6%'} onClick={() => navigate("/submit")}>
+			<Tx5
+				pad1={'1%'}
+				pad2={'2%'}
+				pad1S={'3%'}
+				pad2S={'6%'}
+				onClick={() => navigate('/submit')}>
 				<Link
 					to={'/submit'}
 					style={{ textDecoration: 'none', color: 'black' }}>
