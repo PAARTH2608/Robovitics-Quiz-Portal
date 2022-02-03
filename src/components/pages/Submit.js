@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { MainDiv, Tx5 } from './Start';
 import Logo from '../../assets/RoboVITics-Logo.svg';
 import ImgLogo from '../../assets/Group.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadDoc } from '../../redux/actions/upload.action';
 // import { completed } from "../../redux/actions/completed.action";
@@ -104,6 +104,7 @@ const Submit = () => {
 	const [File, setFile] = useState(null);
 	const id = useSelector((state) => state.auth.id);
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const [isLarge, setIsLarge] = useState(false);
 	const [modal, setModal] = useState(false);
@@ -151,6 +152,7 @@ const Submit = () => {
 				setIsLarge(false);
 			}
 			dispatch(uploadDoc({ File, id }));
+			navigate('/finish');
 		} else {
 			setModal(true);
 		}
@@ -182,7 +184,7 @@ const Submit = () => {
 			</Help1>
 			<Tx4>ARE YOU SURE YOU WANT TO SUBMIT QUIZ ?</Tx4>
 			<HelperDiv>
-				<Tx5 pad1={'1%'} pad2={'3%'} pad1S={'3%'} pad2S={'7%'}>
+				<Tx5 pad1={'1%'} pad2={'3%'} pad1S={'3%'} pad2S={'7%'} onClick={() => navigate("/domains")}>
 					<Link
 						to={'/domains'}
 						style={{ textDecoration: 'none', color: 'black' }}>

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { MainDiv, Tx5 } from './Start';
 import { RulesDiv } from './Rules';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BoxTwo } from './Rules';
 import Counter from '../utils/Counter';
 import { BiRefresh } from 'react-icons/bi';
@@ -63,6 +63,7 @@ const RefreshDiv = styled.div`
 
 const Domains = () => {
 	const [rot, setRot] = useState(false);
+	const navigate = useNavigate();
 	const handleClick = () => setRot((prevState) => !prevState);
 
 	const id = useSelector((state) => state.auth.id);
@@ -153,7 +154,7 @@ const Domains = () => {
 				{clickFour && <CSE packet={questionFet.SET.CSE} />}
 				{clickFive && <Electrical packet={questionFet.SET.ELE} />}
 			</RulesDiv>
-			<Tx5 pad1={'1%'} pad2={'2%'} pad1S={'3%'} pad2S={'6%'}>
+			<Tx5 pad1={'1%'} pad2={'2%'} pad1S={'3%'} pad2S={'6%'} onClick={() => navigate("/submit")}>
 				<Link
 					to={'/submit'}
 					style={{ textDecoration: 'none', color: 'black' }}>

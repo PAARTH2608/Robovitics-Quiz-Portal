@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import rules from "../utils/RulesHelper";
 import { questionFetch } from "../../redux/actions/que.actions";
@@ -84,6 +84,7 @@ const RefreshDiv = styled.div`
 const Rules = () => {
   const id = useSelector((state) => state.auth.id);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
   useEffect(() => {
     dispatch(questionFetch({ id: id }));
@@ -109,7 +110,7 @@ const Rules = () => {
           <Para key={i}>{rule}</Para>
         ))}
       </RulesDiv>
-      <Tx5 pad1={"2%"} pad2={"4%"} pad1S={"3%"} pad2S={"8%"}>
+      <Tx5 pad1={"2%"} pad2={"4%"} pad1S={"3%"} pad2S={"8%"} onClick={() => navigate("/domains")}>
         <Link
           to={"/domains"}
           style={{ textDecoration: "none", color: "black" }}

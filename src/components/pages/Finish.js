@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MainDiv, Img, SocialDiv, LineDiv, DotDiv, Tx5 } from "./Start";
 import { LogoDiv } from "./Rules";
 import Socials from "../utils/Socials";
@@ -83,6 +83,7 @@ const ImgDiv = styled.div`
 `;
 
 const Finish = () => {
+  const navigate = useNavigate();
   return (
     <MainDiv>
       <CDiv>
@@ -92,7 +93,7 @@ const Finish = () => {
         <TextDiv> 
           <Tx2>Thank you for the response!!</Tx2>
           <Tx4>RESULTS WILL BE OUT SOON</Tx4>
-          <Tx5 pad1={"2%"} pad2={"4%"} pad1S={"3%"} pad2S={"7%"}>
+          <Tx5 pad1={"2%"} pad2={"4%"} pad1S={"3%"} pad2S={"7%"} onClick={() => navigate("/")}>
             <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
               Home
             </Link>
