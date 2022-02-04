@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/Counter.css';
 import { getRemainingTimeUntilMsTimestamp } from './CounterHelper.js';
 import { completed } from '../../redux/actions/completed.action';
+import { login } from '../../redux/actions/auth.action';
 
 const defaultRemainingTime = {
 	seconds: '11',
@@ -19,6 +20,7 @@ const Counter = ({ countdownTimestampMs, currentTime, cet }) => {
 	const dispatch = useDispatch();
 	const [currentTimeUpdate, setCurrentTimeUpdate] = useState();
 	const id = useSelector((state) => state.auth.id);
+	const email = useSelector((state) => state.auth.email);
 	// console.log(cet);
 	// console.log(remainingTime);
 	useEffect(() => {
@@ -30,6 +32,7 @@ const Counter = ({ countdownTimestampMs, currentTime, cet }) => {
 			remainingTime.hours === '00' &&
 			remainingTime.days === '00' &&
 			dispatch(completed({ id })) &&
+			dispatch(login({ email: email })) &&
 			navigate('/');
 		const intervalId = setInterval(() => {
 			updateRemainingTime(countdownTimestampMs, currentTimeUpdate);

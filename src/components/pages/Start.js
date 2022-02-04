@@ -13,6 +13,7 @@ import Line from '../../assets/line.svg';
 import Dot from '../../assets/dot.svg';
 import { CDiv } from './Finish';
 import { firebase } from '../../firebase/firebase';
+import { isChrome } from 'react-device-detect';
 
 export const MainDiv = styled.div`
 	height: 100vh;
@@ -232,7 +233,11 @@ const Start = () => {
 			})
 			.catch((error) => {});
 	};
-
+	useEffect(() => {
+		if (!isChrome) {
+			navigate('/browsererror');
+		}
+	}, []);
 	const signOutWithFirebase = () => {
 		if (errorBool) {
 			firebase.auth().signOut();
