@@ -6,7 +6,7 @@ import { login } from './redux/actions/auth.action';
 import { isChrome } from 'react-device-detect';
 
 function App() {
-	console.log(isChrome);
+	console.log(isChrome, 'latest');
 	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 	const random = useSelector((state) => state.upload.random);
 	const email = useSelector((state) => state.auth.email);
